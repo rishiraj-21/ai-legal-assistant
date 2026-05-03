@@ -42,3 +42,9 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Project docs / dumps
+PRD.md
+extracted_content.txt
+full_code.txt
+report.md
