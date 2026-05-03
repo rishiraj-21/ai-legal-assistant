@@ -23,6 +23,7 @@ __pycache__/
 # IDE
 .idea/
 .vscode/
+.claude/
 *.swp
 *.swo
 
