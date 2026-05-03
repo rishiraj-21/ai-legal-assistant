@@ -1,0 +1,66 @@
+<section class="container py-20">
+  <div class="max-w-2xl mb-12 animate-fade-in-up">
+    <p class="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-3">02 — Risk</p>
+    <h2 class="font-display text-4xl md:text-5xl">How exposed is your case?</h2>
+    <p class="mt-4 text-muted-foreground">A composite score based on precedent, evidence strength, and procedural factors.</p>
+  </div>
+
+  <div class="elevated-card p-10 grid md:grid-cols-2 gap-10 items-center animate-scale-in">
+    <div class="flex justify-center">
+      <div class="relative w-64 h-64">
+        <svg class="w-full h-full -rotate-90" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" [attr.r]="radius" stroke="var(--color-border)" stroke-width="12" fill="none" />
+          <circle
+            cx="100" cy="100" [attr.r]="radius"
+            stroke="url(#riskGrad)" stroke-width="12" fill="none"
+            stroke-linecap="round"
+            [attr.stroke-dasharray]="circumference"
+            [attr.stroke-dashoffset]="offset"
+            [style.transition]="'stroke-dashoffset 1.4s var(--ease-out-soft)'"
+          />
+          <defs>
+            <linearGradient id="riskGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="var(--color-primary)" />
+              <stop offset="100%" stop-color="var(--color-accent)" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="absolute inset-0 grid place-items-center">
+          <div class="text-center">
+            <div class="font-display text-6xl font-semibold">{{ value() }}</div>
+            <div class="text-xs text-muted-foreground tracking-widest">/ 100</div>
+            <div class="mt-2 text-sm font-semibold tracking-[0.2em]" [class]="labelColor">{{ label }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="font-display text-2xl mb-3">What this means</h3>
+      <p class="text-muted-foreground leading-relaxed mb-5">
+        @if (riskSummary()) {
+          {{ riskSummary() }}
+        } @else {
+          Your case shows strong documentary evidence but sits in a jurisdiction where
+          similar disputes resolve slowly. Expect 8–14 months of active litigation unless
+          settled early.
+        }
+      </p>
+      <div class="space-y-2 text-sm">
+        @for (f of factors(); track f[0]) {
+          <div>
+            <div class="flex justify-between text-xs text-muted-foreground mb-1">
+              <span>{{ f[0] }}</span><span>{{ f[1] }}%</span>
+            </div>
+            <div class="h-1.5 rounded-full bg-secondary overflow-hidden">
+              <div class="h-full bg-gradient-primary rounded-full transition-all duration-1000" [style.width]="f[1] + '%'"></div>
+            </div>
+            @if (f[2]) {
+              <p class="text-xs text-muted-foreground mt-1">{{ f[2] }}</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

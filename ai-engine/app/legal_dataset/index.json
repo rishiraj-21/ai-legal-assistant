@@ -1,0 +1,350 @@
+{
+  "ipc/sec_302.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "302",
+    "title": "Punishment for Murder",
+    "category": "Criminal Law - Offences Against Body"
+  },
+  "ipc/sec_304.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "304",
+    "title": "Punishment for Culpable Homicide not amounting to Murder",
+    "category": "Criminal Law - Offences Against Body"
+  },
+  "ipc/sec_354.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "354",
+    "title": "Assault or Criminal Force to Woman with Intent to Outrage Her Modesty",
+    "category": "Criminal Law - Offences Against Women"
+  },
+  "ipc/sec_376.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "376",
+    "title": "Punishment for Rape",
+    "category": "Criminal Law - Offences Against Women"
+  },
+  "ipc/sec_406.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "406",
+    "title": "Punishment for Criminal Breach of Trust",
+    "category": "Criminal Law - Offences Against Property"
+  },
+  "ipc/sec_420.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "420",
+    "title": "Cheating and Dishonestly Inducing Delivery of Property",
+    "category": "Criminal Law - Offences Against Property"
+  },
+  "ipc/sec_498a.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "498A",
+    "title": "Husband or Relative of Husband of a Woman Subjecting Her to Cruelty",
+    "category": "Criminal Law - Offences Against Women"
+  },
+  "ipc/sec_306.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "306",
+    "title": "Abetment of Suicide",
+    "category": "Criminal Law - Offences Against Body"
+  },
+  "ipc/sec_323.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "323",
+    "title": "Punishment for Voluntarily Causing Hurt",
+    "category": "Criminal Law - Offences Against Body"
+  },
+  "ipc/sec_504.txt": {
+    "act": "Indian Penal Code, 1860",
+    "section": "504",
+    "title": "Intentional Insult with Intent to Provoke Breach of the Peace",
+    "category": "Criminal Law - Criminal Intimidation and Insult"
+  },
+  "cpc/order_7.txt": {
+    "act": "Code of Civil Procedure, 1908",
+    "section": "Order VII",
+    "title": "Plaint",
+    "category": "Civil Procedure - Pleadings"
+  },
+  "cpc/order_9.txt": {
+    "act": "Code of Civil Procedure, 1908",
+    "section": "Order IX",
+    "title": "Appearance of Parties and Consequence of Non-Appearance",
+    "category": "Civil Procedure - Appearance and Default"
+  },
+  "cpc/order_39.txt": {
+    "act": "Code of Civil Procedure, 1908",
+    "section": "Order XXXIX",
+    "title": "Temporary Injunctions and Interlocutory Orders",
+    "category": "Civil Procedure - Injunctions"
+  },
+  "cpc/sec_9.txt": {
+    "act": "Code of Civil Procedure, 1908",
+    "section": "9",
+    "title": "Courts to Try All Civil Suits Unless Barred",
+    "category": "Civil Procedure - Jurisdiction"
+  },
+  "cpc/sec_11.txt": {
+    "act": "Code of Civil Procedure, 1908",
+    "section": "11",
+    "title": "Res Judicata",
+    "category": "Civil Procedure - Jurisdiction and Bars"
+  },
+  "cpc/sec_151.txt": {
+    "act": "Code of Civil Procedure, 1908",
+    "section": "151",
+    "title": "Saving of Inherent Powers of Court",
+    "category": "Civil Procedure - Inherent Powers"
+  },
+  "crpc/sec_125.txt": {
+    "act": "Code of Criminal Procedure, 1973",
+    "section": "125",
+    "title": "Order for Maintenance of Wives, Children and Parents",
+    "category": "Criminal Procedure - Maintenance"
+  },
+  "crpc/sec_144.txt": {
+    "act": "Code of Criminal Procedure, 1973",
+    "section": "144",
+    "title": "Power to Issue Order in Urgent Cases of Nuisance or Apprehended Danger",
+    "category": "Criminal Procedure - Preventive Powers"
+  },
+  "crpc/sec_154.txt": {
+    "act": "Code of Criminal Procedure, 1973",
+    "section": "154",
+    "title": "Information in Cognizable Cases (First Information Report)",
+    "category": "Criminal Procedure - Investigation"
+  },
+  "crpc/sec_161.txt": {
+    "act": "Code of Criminal Procedure, 1973",
+    "section": "161",
+    "title": "Examination of Witnesses by Police",
+    "category": "Criminal Procedure - Investigation"
+  },
+  "crpc/sec_164.txt": {
+    "act": "Code of Criminal Procedure, 1973",
+    "section": "164",
+    "title": "Recording of Confessions and Statements",
+    "category": "Criminal Procedure - Investigation"
+  },
+  "crpc/sec_482.txt": {
+    "act": "Code of Criminal Procedure, 1973",
+    "section": "482",
+    "title": "Saving of Inherent Powers of High Court",
+    "category": "Criminal Procedure - Inherent Powers"
+  },
+  "crpc/sec_438.txt": {
+    "act": "Code of Criminal Procedure, 1973",
+    "section": "438",
+    "title": "Direction for Grant of Bail to Person Apprehending Arrest (Anticipatory Bail)",
+    "category": "Criminal Procedure - Bail"
+  },
+  "crpc/sec_439.txt": {
+    "act": "Code of Criminal Procedure, 1973",
+    "section": "439",
+    "title": "Special Powers of High Court or Court of Session Regarding Bail",
+    "category": "Criminal Procedure - Bail"
+  },
+  "contract_act/sec_10.txt": {
+    "act": "Indian Contract Act, 1872",
+    "section": "10",
+    "title": "What Agreements Are Contracts",
+    "category": "Contract Law - Formation of Contract"
+  },
+  "contract_act/sec_17.txt": {
+    "act": "Indian Contract Act, 1872",
+    "section": "17",
+    "title": "Fraud",
+    "category": "Contract Law - Free Consent"
+  },
+  "contract_act/sec_23.txt": {
+    "act": "Indian Contract Act, 1872",
+    "section": "23",
+    "title": "What Considerations and Objects Are Lawful and What Not",
+    "category": "Contract Law - Lawful Object"
+  },
+  "contract_act/sec_56.txt": {
+    "act": "Indian Contract Act, 1872",
+    "section": "56",
+    "title": "Agreement to Do Impossible Act (Frustration of Contract)",
+    "category": "Contract Law - Performance and Discharge"
+  },
+  "contract_act/sec_73.txt": {
+    "act": "Indian Contract Act, 1872",
+    "section": "73",
+    "title": "Compensation for Loss or Damage Caused by Breach of Contract",
+    "category": "Contract Law - Remedies for Breach"
+  },
+  "contract_act/sec_74.txt": {
+    "act": "Indian Contract Act, 1872",
+    "section": "74",
+    "title": "Compensation for Breach of Contract Where Penalty Stipulated",
+    "category": "Contract Law - Remedies for Breach"
+  },
+  "contract_act/sec_2.txt": {
+    "act": "Indian Contract Act, 1872",
+    "section": "2",
+    "title": "Interpretation Clause - Definitions",
+    "category": "Contract Law - Definitions"
+  },
+  "consumer_protection/sec_2_defn.txt": {
+    "act": "Consumer Protection Act, 2019",
+    "section": "2",
+    "title": "Definitions - Consumer, Deficiency, Defect, Service, Goods",
+    "category": "Consumer Law - Definitions"
+  },
+  "consumer_protection/sec_34.txt": {
+    "act": "Consumer Protection Act, 2019",
+    "section": "34",
+    "title": "Jurisdiction of District Commission",
+    "category": "Consumer Law - Jurisdiction"
+  },
+  "consumer_protection/sec_35.txt": {
+    "act": "Consumer Protection Act, 2019",
+    "section": "35",
+    "title": "Manner in Which Complaint Shall Be Made",
+    "category": "Consumer Law - Filing of Complaint"
+  },
+  "consumer_protection/sec_38.txt": {
+    "act": "Consumer Protection Act, 2019",
+    "section": "38",
+    "title": "Procedure on Admission of Complaint",
+    "category": "Consumer Law - Procedure"
+  },
+  "consumer_protection/sec_39.txt": {
+    "act": "Consumer Protection Act, 2019",
+    "section": "39",
+    "title": "Finding of the District Commission",
+    "category": "Consumer Law - Relief and Remedies"
+  },
+  "consumer_protection/sec_69.txt": {
+    "act": "Consumer Protection Act, 2019",
+    "section": "69",
+    "title": "Product Liability",
+    "category": "Consumer Law - Product Liability"
+  },
+  "consumer_protection/sec_84.txt": {
+    "act": "Consumer Protection Act, 2019",
+    "section": "84",
+    "title": "Liability of Product Manufacturer",
+    "category": "Consumer Law - Product Liability"
+  },
+  "family_law/hma_sec_13.txt": {
+    "act": "Hindu Marriage Act, 1955",
+    "section": "13",
+    "title": "Divorce",
+    "category": "Family Law - Marriage and Divorce"
+  },
+  "family_law/hma_sec_24.txt": {
+    "act": "Hindu Marriage Act, 1955",
+    "section": "24",
+    "title": "Maintenance Pendente Lite and Expenses of Proceedings",
+    "category": "Family Law - Maintenance"
+  },
+  "family_law/hma_sec_9.txt": {
+    "act": "Hindu Marriage Act, 1955",
+    "section": "9",
+    "title": "Restitution of Conjugal Rights",
+    "category": "Family Law - Marital Remedies"
+  },
+  "family_law/hma_sec_25.txt": {
+    "act": "Hindu Marriage Act, 1955",
+    "section": "25",
+    "title": "Permanent Alimony and Maintenance",
+    "category": "Family Law - Maintenance"
+  },
+  "family_law/dva_overview.txt": {
+    "act": "Protection of Women from Domestic Violence Act, 2005",
+    "section": "Overview",
+    "title": "Domestic Violence Act 2005 - Comprehensive Overview",
+    "category": "Family Law - Domestic Violence"
+  },
+  "family_law/guardianship.txt": {
+    "act": "Guardians and Wards Act, 1890",
+    "section": "Overview",
+    "title": "Guardians and Wards Act 1890 - Comprehensive Overview",
+    "category": "Family Law - Guardianship and Custody"
+  },
+  "family_law/muslim_divorce.txt": {
+    "act": "Muslim Women (Protection of Rights on Divorce) Act, 1986",
+    "section": "Overview",
+    "title": "Muslim Women Protection of Rights on Divorce - Comprehensive Overview",
+    "category": "Family Law - Muslim Personal Law"
+  },
+  "property_law/tpa_sec_54.txt": {
+    "act": "Transfer of Property Act, 1882",
+    "section": "54",
+    "title": "Sale Defined",
+    "category": "Property Law - Transfer by Sale"
+  },
+  "property_law/tpa_sec_58.txt": {
+    "act": "Transfer of Property Act, 1882",
+    "section": "58",
+    "title": "Mortgage Defined - Types of Mortgages",
+    "category": "Property Law - Mortgage"
+  },
+  "property_law/tpa_sec_105.txt": {
+    "act": "Transfer of Property Act, 1882",
+    "section": "105",
+    "title": "Lease Defined",
+    "category": "Property Law - Lease"
+  },
+  "property_law/tpa_sec_52.txt": {
+    "act": "Transfer of Property Act, 1882",
+    "section": "52",
+    "title": "Transfer of Property Pending Suit Relating Thereto (Lis Pendens)",
+    "category": "Property Law - Transfer Restrictions"
+  },
+  "property_law/rera_overview.txt": {
+    "act": "Real Estate (Regulation and Development) Act, 2016",
+    "section": "Overview",
+    "title": "RERA 2016 - Comprehensive Overview",
+    "category": "Property Law - Real Estate Regulation"
+  },
+  "property_law/rent_control.txt": {
+    "act": "Rent Control Legislation",
+    "section": "Overview",
+    "title": "Rent Control Laws in India - Comprehensive Overview",
+    "category": "Property Law - Tenancy and Rent Control"
+  },
+  "property_law/specific_relief.txt": {
+    "act": "Specific Relief Act, 1963",
+    "section": "12",
+    "title": "Specific Performance of Contract",
+    "category": "Property Law - Specific Relief"
+  },
+  "evidence_act/sec_3.txt": {
+    "act": "Indian Evidence Act, 1872",
+    "section": "3",
+    "title": "Interpretation Clause - Definitions",
+    "category": "Evidence Law - Definitions"
+  },
+  "evidence_act/sec_45.txt": {
+    "act": "Indian Evidence Act, 1872",
+    "section": "45",
+    "title": "Opinions of Experts",
+    "category": "Evidence Law - Expert Evidence"
+  },
+  "evidence_act/sec_65b.txt": {
+    "act": "Indian Evidence Act, 1872",
+    "section": "65B",
+    "title": "Admissibility of Electronic Records",
+    "category": "Evidence Law - Electronic Evidence"
+  },
+  "evidence_act/sec_101.txt": {
+    "act": "Indian Evidence Act, 1872",
+    "section": "101",
+    "title": "Burden of Proof",
+    "category": "Evidence Law - Burden of Proof"
+  },
+  "evidence_act/sec_114.txt": {
+    "act": "Indian Evidence Act, 1872",
+    "section": "114",
+    "title": "Court May Presume Existence of Certain Facts",
+    "category": "Evidence Law - Presumptions"
+  },
+  "evidence_act/sec_32.txt": {
+    "act": "Indian Evidence Act, 1872",
+    "section": "32",
+    "title": "Cases in Which Statement of Relevant Fact by Person Who Is Dead or Cannot Be Found Is Relevant (Dying Declaration)",
+    "category": "Evidence Law - Hearsay Exceptions"
+  }
+}

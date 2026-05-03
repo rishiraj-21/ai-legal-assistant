@@ -1,0 +1,90 @@
+<div class="min-h-screen grid md:grid-cols-2">
+  <!-- Left — brand panel -->
+  <div class="hidden md:flex flex-col justify-between bg-gradient-primary text-primary-foreground p-12">
+    <a routerLink="/" class="flex items-center gap-2 font-display text-2xl font-semibold">
+      <lucide-icon [img]="ScaleIcon" class="w-6 h-6"></lucide-icon>
+      Lex
+    </a>
+    <div>
+      <h2 class="font-display text-5xl mb-4">Welcome</h2>
+      <p class="font-display text-2xl text-primary-foreground/80 italic">Justice, on your side.</p>
+      <p class="mt-6 text-sm text-primary-foreground/70 leading-relaxed max-w-md">
+        Create your Lex account to unlock instant case pathways, risk analysis
+        and an adversarial simulation of your matter.
+      </p>
+    </div>
+    <p class="text-xs text-primary-foreground/50">
+      &copy; {{ currentYear }} Lex &mdash; Informational only.
+    </p>
+  </div>
+
+  <!-- Right — form -->
+  <div class="flex items-center justify-center p-8 md:p-12 bg-background">
+    <div class="w-full max-w-md">
+      <a routerLink="/" class="flex items-center gap-2 font-display text-xl font-semibold text-primary mb-8 md:hidden">
+        <lucide-icon [img]="ScaleIcon" class="w-5 h-5"></lucide-icon>
+        Lex
+      </a>
+
+      <h1 class="font-display text-3xl mb-2">Create account</h1>
+      <p class="text-sm text-muted-foreground mb-8">Takes less than a minute. Your case stays confidential.</p>
+
+      <form (ngSubmit)="onSubmit()" class="space-y-5">
+        <div>
+          <label class="text-sm font-medium mb-1.5 block">Full name</label>
+          <div class="relative">
+            <lucide-icon [img]="UserIcon" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"></lucide-icon>
+            <input
+              type="text"
+              [ngModel]="form().name"
+              (ngModelChange)="updateField('name', $event)"
+              name="name"
+              placeholder="Ada Lovelace"
+              class="w-full pl-9 h-11 rounded-xl border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium mb-1.5 block">Email</label>
+          <div class="relative">
+            <lucide-icon [img]="MailIcon" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"></lucide-icon>
+            <input
+              type="email"
+              [ngModel]="form().email"
+              (ngModelChange)="updateField('email', $event)"
+              name="email"
+              placeholder="you@example.com"
+              class="w-full pl-9 h-11 rounded-xl border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium mb-1.5 block">Password</label>
+          <div class="relative">
+            <lucide-icon [img]="LockIcon" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"></lucide-icon>
+            <input
+              type="password"
+              [ngModel]="form().password"
+              (ngModelChange)="updateField('password', $event)"
+              name="password"
+              placeholder="At least 6 characters"
+              class="w-full pl-9 h-11 rounded-xl border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="loading()"
+          class="w-full h-12 rounded-xl bg-gradient-primary text-primary-foreground font-medium shadow-glow hover:opacity-95 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50">
+          {{ loading() ? 'Creating account\u2026' : 'Create account' }}
+          <lucide-icon [img]="ArrowRightIcon" class="w-4 h-4"></lucide-icon>
+        </button>
+      </form>
+
+      <p class="text-sm text-muted-foreground mt-6 text-center">
+        Already have an account?
+        <a routerLink="/dashboard" class="text-primary underline hover:text-primary/90 ml-1">Continue</a>
+      </p>
+    </div>
+  </div>
+</div>

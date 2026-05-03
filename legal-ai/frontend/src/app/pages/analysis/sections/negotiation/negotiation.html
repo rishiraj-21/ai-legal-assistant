@@ -1,0 +1,65 @@
+<section class="container py-20">
+  <div class="max-w-2xl mb-12 animate-fade-in-up">
+    <p class="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-3">04 — Settlement</p>
+    <h2 class="font-display text-4xl md:text-5xl">Find common ground.</h2>
+    <p class="mt-4 text-muted-foreground">Compare positions, estimate settlement odds, and plan your next moves.</p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    <!-- Your Position -->
+    <div class="elevated-card p-7 animate-fade-in-up">
+      <p class="text-xs uppercase tracking-widest text-primary font-medium mb-2">Your Position</p>
+      <ul class="space-y-3">
+        @for (p of yourPos(); track p) {
+          <li class="flex items-start gap-3">
+            <span class="w-5 h-5 rounded-full bg-primary/10 grid place-items-center flex-shrink-0 mt-0.5">
+              <lucide-icon [img]="CheckIcon" class="w-3 h-3 text-primary"></lucide-icon>
+            </span>
+            <span class="text-sm">{{ p }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- Opponent Position -->
+    <div class="elevated-card p-7 animate-fade-in-up" style="animation-delay: 80ms">
+      <p class="text-xs uppercase tracking-widest text-accent font-medium mb-2">Opponent Position</p>
+      <ul class="space-y-3">
+        @for (p of oppPos(); track p) {
+          <li class="flex items-start gap-3">
+            <span class="w-5 h-5 rounded-full bg-accent/10 grid place-items-center flex-shrink-0 mt-0.5">
+              <lucide-icon [img]="CheckIcon" class="w-3 h-3 text-accent"></lucide-icon>
+            </span>
+            <span class="text-sm">{{ p }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <!-- Settlement Probability -->
+  <div class="mt-8 elevated-card p-8 animate-fade-in-up">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-6">
+      <div>
+        <h3 class="font-display text-2xl">Settlement Probability</h3>
+        <p class="text-sm text-muted-foreground">Odds of resolution without full trial.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        @if (recommendation()) {
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">{{ recommendation() }}</span>
+        }
+        <div class="font-display text-5xl text-primary">{{ settlementProbability() }}%</div>
+      </div>
+    </div>
+    <div class="h-2 rounded-full bg-secondary overflow-hidden mb-8">
+      <div class="h-full bg-gradient-primary rounded-full" [style.width.%]="settlementProbability()"></div>
+    </div>
+
+    @if (reasoning()) {
+      <div class="mb-6 p-4 rounded-xl bg-secondary/50 border border-border/60">
+        <p class="text-xs uppercase tracking-widest text-muted-foreground font-medium mb-2">AI Reasoning</p>
+        <p class="text-sm leading-relaxed">{{ reasoning() }}</p>
+      </div>
+    }
+  </div>
+</section>

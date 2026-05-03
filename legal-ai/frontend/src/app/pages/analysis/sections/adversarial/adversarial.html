@@ -1,0 +1,79 @@
+<section class="container py-20">
+  <div class="max-w-2xl mb-12 animate-fade-in-up">
+    <p class="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-3">03 — Adversarial</p>
+    <h2 class="font-display text-4xl md:text-5xl">Both sides, simulated.</h2>
+    <p class="mt-4 text-muted-foreground">See the strongest argument for — and against — your position.</p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    <!-- Advocate -->
+    <div class="elevated-card p-7 hover-lift animate-fade-in-up border-l-4 border-l-success">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-10 h-10 rounded-xl bg-success/10 grid place-items-center">
+          <lucide-icon [img]="ShieldIcon" class="w-5 h-5 text-success"></lucide-icon>
+        </span>
+        <div>
+          <h3 class="font-display text-xl">Advocate AI</h3>
+          <p class="text-xs text-muted-foreground">Your side</p>
+        </div>
+      </div>
+      <ul class="space-y-2.5 text-sm">
+        @for (p of advocatePoints(); track p) {
+          <li class="flex gap-2">
+            <span class="text-success mt-1">&#9656;</span>
+            <span>{{ p }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- Opponent -->
+    <div class="elevated-card p-7 hover-lift animate-fade-in-up border-l-4 border-l-destructive" style="animation-delay: 80ms">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-10 h-10 rounded-xl bg-destructive/10 grid place-items-center">
+          <lucide-icon [img]="SwordsIcon" class="w-5 h-5 text-destructive"></lucide-icon>
+        </span>
+        <div>
+          <h3 class="font-display text-xl">Opponent AI</h3>
+          <p class="text-xs text-muted-foreground">Their likely strategy</p>
+        </div>
+      </div>
+      <ul class="space-y-2.5 text-sm">
+        @for (p of opponentPoints(); track p) {
+          <li class="flex gap-2">
+            <span class="text-destructive mt-1">&#9656;</span>
+            <span>{{ p }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <!-- Strength Comparison -->
+  <div class="mt-8 elevated-card p-7 animate-fade-in-up">
+    <h4 class="font-display text-xl mb-4">Strength Comparison</h4>
+    <div class="relative h-10 rounded-full overflow-hidden bg-secondary">
+      <div class="absolute inset-y-0 left-0 bg-success/80 flex items-center justify-start pl-4 text-xs font-medium text-success-foreground" [style.width.%]="advocatePct()">
+        You &middot; {{ advocatePct() }}%
+      </div>
+      <div class="absolute inset-y-0 right-0 bg-destructive/80 flex items-center justify-end pr-4 text-xs font-medium text-destructive-foreground" [style.width.%]="opponentPct()">
+        {{ opponentPct() }}% &middot; Opponent
+      </div>
+    </div>
+  </div>
+
+  <!-- Vulnerabilities -->
+  <div class="mt-6 elevated-card p-7 animate-fade-in-up">
+    <div class="flex items-center gap-2 mb-4">
+      <lucide-icon [img]="AlertTriangleIcon" class="w-5 h-5 text-warning"></lucide-icon>
+      <h4 class="font-display text-xl">Your Vulnerabilities</h4>
+    </div>
+    <ul class="grid md:grid-cols-3 gap-3">
+      @for (v of vulnerabilities(); track v) {
+        <li class="text-sm p-4 rounded-xl bg-warning/5 border border-warning/20">
+          {{ v }}
+        </li>
+      }
+    </ul>
+  </div>
+</section>

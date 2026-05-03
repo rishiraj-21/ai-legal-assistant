@@ -1,0 +1,88 @@
+@if (loading()) {
+  <app-navbar />
+  <app-analysis-loader />
+} @else {
+  <app-navbar />
+
+  <!-- Sticky section tabs -->
+  <div class="sticky top-16 z-40 glass-card border-b border-border/60">
+    <div class="container flex items-center gap-2 py-3 overflow-x-auto">
+      <div class="flex items-center gap-1">
+        @for (s of sections; track s.id) {
+          <button
+            (click)="scrollTo(s.id)"
+            class="px-4 md:px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all"
+            [class.bg-primary]="active() === s.id"
+            [class.text-primary-foreground]="active() === s.id"
+            [class.shadow-soft]="active() === s.id"
+            [class.text-muted-foreground]="active() !== s.id"
+            [class.hover:text-foreground]="active() !== s.id">
+            {{ s.label }}
+          </button>
+        }
+      </div>
+      <div class="flex-1"></div>
+      <button (click)="goBack()" class="px-4 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hidden sm:inline-flex items-center gap-2">
+        <lucide-icon [img]="ArrowLeftIcon" class="w-4 h-4"></lucide-icon>
+        New Case
+      </button>
+      <a routerLink="/consult" class="px-4 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hidden sm:inline-flex items-center gap-2">
+        <lucide-icon [img]="UserPlusIcon" class="w-4 h-4"></lucide-icon>
+        Consult Lawyer
+      </a>
+    </div>
+  </div>
+
+  <!-- Case header -->
+  <div class="container py-10">
+    <div class="elevated-card p-8 animate-fade-in-up">
+      <p class="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-2">Analysis Complete</p>
+      <h1 class="font-display text-3xl md:text-4xl mb-2">Case Analysis Report</h1>
+      <p class="text-sm text-muted-foreground mb-6">
+        {{ caseType }} &middot; Generated {{ dateString }}
+      </p>
+      <button class="px-4 py-2 rounded-xl border border-border/60 text-sm font-medium hover:bg-secondary/50 transition-colors inline-flex items-center gap-2">
+        <lucide-icon [img]="DownloadIcon" class="w-4 h-4"></lucide-icon>
+        Download Report
+      </button>
+    </div>
+
+    <div class="mt-6 elevated-card p-6 animate-fade-in-up">
+      <p class="text-xs uppercase tracking-widest text-muted-foreground font-medium mb-2">Your description</p>
+      <p class="text-sm leading-relaxed">{{ issue }}</p>
+    </div>
+  </div>
+
+  <!-- Sections -->
+  <div #pathwaySection data-section="pathway">
+    <app-legal-pathway />
+  </div>
+  <div #riskSection data-section="risk">
+    <app-risk-score [score]="riskScore()" [factors]="riskFactors()" [riskLabel]="riskLabel()" [riskSummary]="riskSummary()" />
+  </div>
+  <div #adversarialSection data-section="adversarial">
+    <app-adversarial />
+  </div>
+  <div #settlementSection data-section="settlement">
+    <app-negotiation />
+  </div>
+
+  <!-- CTA -->
+  <div class="container py-12">
+    <div class="elevated-card p-8 text-center animate-fade-in-up">
+      <h3 class="font-display text-2xl mb-2">Want a human in the loop?</h3>
+      <p class="text-sm text-muted-foreground mb-6">
+        Speak with a verified lawyer over chat or video — on your schedule.
+      </p>
+      <a routerLink="/consult"
+         class="px-6 py-3 rounded-xl bg-gradient-primary text-primary-foreground font-medium shadow-glow hover:opacity-95 transition-opacity inline-flex items-center gap-2">
+        Consult a Lawyer
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="container py-8 text-center text-xs text-muted-foreground">
+    &copy; {{ currentYear }} Lex &mdash; Informational only, not a substitute for legal advice.
+  </footer>
+}

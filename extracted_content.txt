@@ -1,0 +1,903 @@
+import { Shield, Swords, AlertTriangle } from "lucide-react";
+const advocatePoints = [
+"Clear documentary trail supporting your claim",
+"Prior written admission from the opposing party",
+"Favorable precedent in same jurisdiction (2019)",
+"Statutory protection under Sec. 73, Contract Act",
+];
+const opponentPoints = [
+"May argue delay in raising the dispute",
+"Likely to question authenticity of email trail",
+"Could invoke force majeure defense",
+"May counter-claim for alleged breach",
+];
+const vulnerabilities = [
+"Two-month gap in correspondence weakens continuity",
+"No witness to the verbal agreement of March",
+"Partial payment could be read as acceptance",
+];
+const Adversarial = () => {
+return (
+<section className="container py-20">
+<div className="max-w-2xl mb-12 animate-fade-in-up">
+<p className="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-3">03 — Adversarial</p>
+<h2 className="font-display text-4xl md:text-5xl">Both sides, simulated.</h2>
+<p className="mt-4 text-muted-foreground">See the strongest argument for — and against — your position.</p>
+</div>
+<div className="grid md:grid-cols-2 gap-6">
+<div className="elevated-card p-7 hover-lift animate-fade-in-up border-l-4 border-l-success">
+<div className="flex items-center gap-3 mb-4">
+<span className="w-10 h-10 rounded-xl bg-success/10 grid place-items-center">
+<Shield className="w-5 h-5 text-success" />
+</span>
+<div>
+<h3 className="font-display text-xl">Advocate AI</h3>
+<p className="text-xs text-muted-foreground">Your side</p>
+</div>
+</div>
+<ul className="space-y-2.5 text-sm">
+{advocatePoints.map((p) => (
+<li key={p} className="flex gap-2">
+<span className="text-success mt-1">▸</span>
+<span>{p}</span>
+</li>
+))}
+</ul>
+</div>
+<div className="elevated-card p-7 hover-lift animate-fade-in-up border-l-4 border-l-destructive" style={{ animationDelay: "80ms" }}>
+<div className="flex items-center gap-3 mb-4">
+<span className="w-10 h-10 rounded-xl bg-destructive/10 grid place-items-center">
+<Swords className="w-5 h-5 text-destructive" />
+</span>
+<div>
+<h3 className="font-display text-xl">Opponent AI</h3>
+<p className="text-xs text-muted-foreground">Their likely strategy</p>
+</div>
+</div>
+<ul className="space-y-2.5 text-sm">
+{opponentPoints.map((p) => (
+<li key={p} className="flex gap-2">
+<span className="text-destructive mt-1">▸</span>
+<span>{p}</span>
+</li>
+))}
+</ul>
+</div>
+</div>
+<div className="mt-8 elevated-card p-7 animate-fade-in-up">
+<h4 className="font-display text-xl mb-4">Strength Comparison</h4>
+<div className="relative h-10 rounded-full overflow-hidden bg-secondary">
+<div className="absolute inset-y-0 left-0 bg-success/80 flex items-center justify-start pl-4 text-xs font-medium text-success-foreground" style={{ width: "62%" }}>
+You · 62%
+</div>
+<div className="absolute inset-y-0 right-0 bg-destructive/80 flex items-center justify-end pr-4 text-xs font-medium text-destructive-foreground" style={{ width: "38%" }}>
+38% · Opponent
+</div>
+</div>
+</div>
+<div className="mt-6 elevated-card p-7 animate-fade-in-up">
+<div className="flex items-center gap-2 mb-4">
+<AlertTriangle className="w-5 h-5 text-warning" />
+<h4 className="font-display text-xl">Your Vulnerabilities</h4>
+</div>
+<ul className="grid md:grid-cols-3 gap-3">
+{vulnerabilities.map((v) => (
+<li key={v} className="text-sm p-4 rounded-xl bg-warning/5 border border-warning/20">
+{v}
+</li>
+))}
+</ul>
+</div>
+</section>
+);
+};
+export default Adversarial;
+import { useEffect, useState } from "react";
+import { Scale } from "lucide-react";
+const STEPS = [
+"Reviewing legal context...",
+"Analyzing case precedents...",
+"Computing risk assessment...",
+"Running adversarial simulation...",
+"Generating settlement strategy...",
+];
+const AnalysisLoader = () => {
+const [visible, setVisible] = useState(0);
+useEffect(() => {
+const timers = STEPS.map((_, i) =>
+setTimeout(() => setVisible((v) => Math.max(v, i + 1)), i * 600)
+);
+return () => timers.forEach(clearTimeout);
+}, []);
+return (
+<div className="min-h-[70vh] grid place-items-center px-6">
+<div className="text-center max-w-md w-full">
+<div className="relative w-32 h-32 mx-auto mb-10">
+<div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl animate-pulse" />
+<div className="absolute inset-2 rounded-full border border-primary/20 animate-pulse" />
+<div className="absolute inset-0 grid place-items-center">
+<div className="w-20 h-20 rounded-2xl bg-gradient-primary grid place-items-center shadow-glow animate-spin-slow">
+<Scale className="w-10 h-10 text-primary-foreground" />
+</div>
+</div>
+</div>
+<h2 className="font-display text-4xl mb-3">Analyzing Your Case</h2>
+<p className="text-sm text-muted-foreground mb-8">
+Lex is reasoning through your situation — this takes a moment.
+</p>
+<ul className="space-y-3 text-left">
+{STEPS.map((s, i) => {
+const active = i < visible;
+const current = i === visible - 1;
+return (
+<li
+key={s}
+className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-500 ${
+active
+? "opacity-100 translate-y-0 bg-card border-border/60"
+: "opacity-0 translate-y-2 bg-transparent border-transparent"
+}`}
+>
+<span
+className={`w-2 h-2 rounded-full ${
+current
+? "bg-primary animate-pulse"
+: active
+? "bg-success"
+: "bg-muted"
+}`}
+/>
+<span className="text-sm">{s}</span>
+</li>
+);
+})}
+</ul>
+</div>
+</div>
+);
+};
+export default AnalysisLoader;
+import { useEffect, useState } from "react";
+import { Scale } from "lucide-react";
+const STEPS = [
+"Reviewing legal context...",
+"Analyzing case precedents...",
+"Computing risk assessment...",
+"Running adversarial simulation...",
+"Generating settlement strategy...",
+];
+const AnalysisLoader = () => {
+const [visible, setVisible] = useState(0);
+useEffect(() => {
+const timers = STEPS.map((_, i) =>
+setTimeout(() => setVisible((v) => Math.max(v, i + 1)), i * 600)
+);
+return () => timers.forEach(clearTimeout);
+}, []);
+return (
+<div className="min-h-[70vh] grid place-items-center px-6">
+<div className="text-center max-w-md w-full">
+<div className="relative w-32 h-32 mx-auto mb-10">
+<div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl animate-pulse" />
+<div className="absolute inset-2 rounded-full border border-primary/20 animate-pulse" />
+<div className="absolute inset-0 grid place-items-center">
+<div className="w-20 h-20 rounded-2xl bg-gradient-primary grid place-items-center shadow-glow animate-spin-slow">
+<Scale className="w-10 h-10 text-primary-foreground" />
+</div>
+</div>
+</div>
+<h2 className="font-display text-4xl mb-3">Analyzing Your Case</h2>
+<p className="text-sm text-muted-foreground mb-8">
+Lex is reasoning through your situation — this takes a moment.
+</p>
+<ul className="space-y-3 text-left">
+{STEPS.map((s, i) => {
+const active = i < visible;
+const current = i === visible - 1;
+return (
+<li
+key={s}
+className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-500 ${
+active
+? "opacity-100 translate-y-0 bg-card border-border/60"
+: "opacity-0 translate-y-2 bg-transparent border-transparent"
+}`}
+>
+<span
+className={`w-2 h-2 rounded-full ${
+current
+? "bg-primary animate-pulse"
+: active
+? "bg-success"
+: "bg-muted"
+}`}
+/>
+<span className="text-sm">{s}</span>
+</li>
+);
+})}
+</ul>
+</div>
+</div>
+);
+};
+export default AnalysisLoader;
+import { useState } from "react"; import { Sparkles, ArrowRight } from "lucide-react"; import { Button } from "@/components/ui/button"; import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"; interface Props { onAnalyze: (issue: string, caseType: string) => void; analyzing: boolean; } const caseTypes = [ "Criminal", "Civil", "Family", "Property", "Corporate", "Employment", "Consumer", "Intellectual Property", "Tax", "Other", ]; const HeroInput = ({ onAnalyze, analyzing }: Props) => { const [issue, setIssue] = useState(""); const [type, setType] = useState("Civil"); return ( 
+AI-powered legal intelligence 
+Navigate the Law 
+with Precision. 
+Describe your case in plain language. Lex maps your pathway, scores the risk, and simulates both sides — all on one page. 
+setIssue(e.target.value)} placeholder="Describe your legal issue... e.g. 'My landlord is withholding my security deposit after I moved out…'" rows={4} className="w-full resize-none bg-transparent px-4 py-3 text-base placeholder:text-muted-foreground/70 focus:outline-none" /> <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 border-t border-border/60 pt-3 px-1"> <Select value={type} onValueChange={setType}> <SelectTrigger className="sm:w-56 bg-secondary/50 border-border/60 rounded-xl"> <SelectValue placeholder="Case type" /> </SelectTrigger> <SelectContent> {caseTypes.map((c) => ( <SelectItem key={c} value={c}>{c}</SelectItem> ))} </SelectContent> </Select> <div className="flex-1" /> <Button size="lg" disabled={!issue.trim() || analyzing} onClick={() => onAnalyze(issue, type)} className="rounded-xl bg-gradient-primary hover:opacity-95 shadow-glow h-12 px-6" > {analyzing ? "Analyzing…" : "Analyze Case"} <ArrowRight className="ml-2 w-4 h-4" /> </Button> </div> </div> <div className="mt-8 flex flex-wrap justify-center gap-2 text-xs text-muted-foreground"> {["Confidential", "Not legal advice", "Precedent-aware", "Built with care"].map((t) => ( <span key={t} className="px-3 py-1 rounded-full bg-surface-raised border border-border/60"> {t} </span> ))} </div> </div> </section> ); }; export default HeroInput; </body>
+import { FileText, Gavel, Handshake, Scale, ShieldCheck } from "lucide-react";
+const steps = [
+{ icon: FileText, title: "Gather Evidence", detail: "Collect contracts, emails, receipts, and any written communications." },
+{ icon: ShieldCheck, title: "Send Legal Notice", detail: "Formal notice to the opposing party outlining the grievance." },
+{ icon: Scale, title: "File the Case", detail: "Submit the petition in the appropriate court of jurisdiction." },
+{ icon: Handshake, title: "Mediation Phase", detail: "Attempt a court-mandated settlement before trial." },
+{ icon: Gavel, title: "Hearing & Verdict", detail: "Presentation of evidence, cross-examination, and final judgment." },
+];
+const documents = [
+"Government ID", "Signed agreement / contract", "Written correspondence",
+"Proof of payment / damages", "Witness statements", "Prior legal notices",
+];
+const LegalPathway = () => {
+return (
+<section className="container py-20">
+<div className="max-w-2xl mb-12 animate-fade-in-up">
+<p className="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-3">01 — Pathway</p>
+<h2 className="font-display text-4xl md:text-5xl">Your legal pathway, step by step.</h2>
+<p className="mt-4 text-muted-foreground">A structured roadmap from first notice to final verdict.</p>
+</div>
+<div className="relative">
+<div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-border via-primary/30 to-border md:-translate-x-1/2" />
+<div className="space-y-8">
+{steps.map((s, i) => (
+<div
+key={s.title}
+className={`relative grid md:grid-cols-2 gap-6 items-center animate-fade-in-up ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}
+style={{ animationDelay: `${i * 80}ms` }}
+>
+<div className={`pl-16 md:pl-0 ${i % 2 === 0 ? "md:text-right md:pr-12" : "md:pl-12"}`}>
+<div className="elevated-card p-6 hover-lift inline-block text-left">
+<div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+<span className="font-mono">Step {String(i + 1).padStart(2, "0")}</span>
+</div>
+<h3 className="font-display text-2xl mb-2">{s.title}</h3>
+<p className="text-sm text-muted-foreground leading-relaxed">{s.detail}</p>
+</div>
+</div>
+<div className="absolute left-0 md:left-1/2 top-6 md:-translate-x-1/2">
+<div className="w-10 h-10 rounded-full bg-gradient-primary grid place-items-center shadow-glow ring-4 ring-background">
+<s.icon className="w-4 h-4 text-primary-foreground" />
+</div>
+</div>
+<div className="hidden md:block" />
+</div>
+))}
+</div>
+</div>
+<div className="mt-16 elevated-card p-8 animate-fade-in-up">
+<h3 className="font-display text-2xl mb-1">Required Documents</h3>
+<p className="text-sm text-muted-foreground mb-6">Prepare these before proceeding.</p>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+{documents.map((d) => (
+<div key={d} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-secondary/60 border border-border/60">
+<FileText className="w-4 h-4 text-accent" />
+<span className="text-sm">{d}</span>
+</div>
+))}
+</div>
+</div>
+</section>
+);
+};
+export default LegalPathway;
+import { Link, useLocation } from "react-router-dom"; import { Scale } from "lucide-react"; import { cn } from "@/lib/utils"; const Navbar = () => { const { pathname } = useLocation(); const isLanding = pathname === "/"; return ( 
+Lex AI Legal Assistant 
+{isLanding ? ( <> Lawyers Get Started ) : ( <> Analyze Consult a Lawyer )} 
+); }; export default Navbar; 
+import { Check } from "lucide-react";
+const Negotiation = () => {
+const yourPos = [
+"Full refund of deposit: ₹1,20,000",
+"Written acknowledgement of fault",
+"Reimbursement of legal costs",
+];
+const oppPos = [
+"Partial refund: ₹60,000",
+"Deduct cleaning & repair costs",
+"No admission of liability",
+];
+const steps = [
+"Open with formal settlement letter citing the 2019 precedent",
+"Offer a 15-day window to respond before filing",
+"Counter at ₹95,000 with mutual NDA",
+"Escalate to mediation if no reply in 30 days",
+];
+return (
+<section className="container py-20">
+<div className="max-w-2xl mb-12 animate-fade-in-up">
+<p className="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-3">04 — Settlement</p>
+<h2 className="font-display text-4xl md:text-5xl">Find common ground.</h2>
+<p className="mt-4 text-muted-foreground">Compare positions, estimate settlement odds, and plan your next moves.</p>
+</div>
+<div className="grid md:grid-cols-2 gap-6">
+<div className="elevated-card p-7 animate-fade-in-up">
+<p className="text-xs uppercase tracking-widest text-primary font-medium mb-2">Your Position</p>
+<ul className="space-y-3">
+{yourPos.map((p) => (
+<li key={p} className="flex items-start gap-3">
+<span className="w-5 h-5 rounded-full bg-primary/10 grid place-items-center flex-shrink-0 mt-0.5">
+<Check className="w-3 h-3 text-primary" />
+</span>
+<span className="text-sm">{p}</span>
+</li>
+))}
+</ul>
+</div>
+<div className="elevated-card p-7 animate-fade-in-up" style={{ animationDelay: "80ms" }}>
+<p className="text-xs uppercase tracking-widest text-accent font-medium mb-2">Opponent Position</p>
+<ul className="space-y-3">
+{oppPos.map((p) => (
+<li key={p} className="flex items-start gap-3">
+<span className="w-5 h-5 rounded-full bg-accent/10 grid place-items-center flex-shrink-0 mt-0.5">
+<Check className="w-3 h-3 text-accent" />
+</span>
+<span className="text-sm">{p}</span>
+</li>
+))}
+</ul>
+</div>
+</div>
+<div className="mt-8 elevated-card p-8 animate-fade-in-up">
+<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-6">
+<div>
+<h3 className="font-display text-2xl">Settlement Probability</h3>
+<p className="text-sm text-muted-foreground">Odds of resolution without full trial.</p>
+</div>
+<div className="font-display text-5xl text-primary">68%</div>
+</div>
+<div className="h-2 rounded-full bg-secondary overflow-hidden mb-8">
+<div className="h-full bg-gradient-primary rounded-full" style={{ width: "68%" }} />
+</div>
+<h4 className="font-display text-xl mb-4">Suggested Negotiation Steps</h4>
+<ol className="space-y-3">
+{steps.map((s, i) => (
+<li key={s} className="flex gap-4 p-4 rounded-xl bg-secondary/50 border border-border/60">
+<span className="font-display text-xl text-primary w-8">{String(i + 1).padStart(2, "0")}</span>
+<span className="text-sm pt-1">{s}</span>
+</li>
+))}
+</ol>
+</div>
+</section>
+);
+};
+export default Negotiation;
+import { useEffect, useState } from "react";
+const RiskScore = ({ score = 72 }: { score?: number }) => {
+const [value, setValue] = useState(0);
+useEffect(() => {
+const t = setTimeout(() => setValue(score), 200);
+return () => clearTimeout(t);
+}, [score]);
+const label = score >= 70 ? "HIGH" : score >= 40 ? "MEDIUM" : "LOW";
+const labelColor =
+score >= 70 ? "text-destructive" : score >= 40 ? "text-warning" : "text-success";
+const radius = 90;
+const circumference = 2 * Math.PI * radius;
+const offset = circumference - (value / 100) * circumference;
+return (
+<section className="container py-20">
+<div className="max-w-2xl mb-12 animate-fade-in-up">
+<p className="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-3">02 — Risk</p>
+<h2 className="font-display text-4xl md:text-5xl">How exposed is your case?</h2>
+<p className="mt-4 text-muted-foreground">A composite score based on precedent, evidence strength, and procedural factors.</p>
+</div>
+<div className="elevated-card p-10 grid md:grid-cols-2 gap-10 items-center animate-scale-in">
+<div className="flex justify-center">
+<div className="relative w-64 h-64">
+<svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
+<circle cx="100" cy="100" r={radius} stroke="hsl(var(--border))" strokeWidth="12" fill="none" />
+<circle
+cx="100" cy="100" r={radius}
+stroke="url(#riskGrad)" strokeWidth="12" fill="none"
+strokeLinecap="round"
+strokeDasharray={circumference}
+strokeDashoffset={offset}
+style={{ transition: "stroke-dashoffset 1.4s var(--ease-out-soft)" }}
+/>
+<defs>
+<linearGradient id="riskGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stopColor="hsl(var(--primary))" />
+<stop offset="100%" stopColor="hsl(var(--accent))" />
+</linearGradient>
+</defs>
+</svg>
+<div className="absolute inset-0 grid place-items-center">
+<div className="text-center">
+<div className="font-display text-6xl font-semibold">{value}</div>
+<div className="text-xs text-muted-foreground tracking-widest">/ 100</div>
+<div className={`mt-2 text-sm font-semibold tracking-[0.2em] ${labelColor}`}>{label}</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 className="font-display text-2xl mb-3">What this means</h3>
+<p className="text-muted-foreground leading-relaxed mb-5">
+Your case shows strong documentary evidence but sits in a jurisdiction where
+similar disputes resolve slowly. Expect 8–14 months of active litigation unless
+settled early.
+</p>
+<div className="space-y-2 text-sm">
+{[
+["Evidence strength", 78],
+["Precedent favorability", 64],
+["Procedural complexity", 71],
+].map(([k, v]) => (
+<div key={k as string}>
+<div className="flex justify-between text-xs text-muted-foreground mb-1">
+<span>{k}</span><span>{v}%</span>
+</div>
+<div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+<div className="h-full bg-gradient-primary rounded-full" style={{ width: `${v}%` }} />
+</div>
+</div>
+))}
+</div>
+</div>
+</div>
+</section>
+);
+};
+export default RiskScore;
+
+import * as React from "react"; import * as AccordionPrimitive from "@radix-ui/react-accordion"; import { ChevronDown } from "lucide-react"; import { cn } from "@/lib/utils"; const Accordion = AccordionPrimitive.Root; const AccordionItem = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); AccordionItem.displayName = "AccordionItem"; const AccordionTrigger = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, children, ...props }, ref) => ( svg]:rotate-180", className, )} {...props} > {children} )); AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName; const AccordionContent = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, children, ...props }, ref) => ( 
+{children}
+)); AccordionContent.displayName = AccordionPrimitive.Content.displayName; export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }; import * as React from "react"; import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"; import { cn } from "@/lib/utils"; import { buttonVariants } from "@/components/ui/button"; const AlertDialog = AlertDialogPrimitive.Root; const AlertDialogTrigger = AlertDialogPrimitive.Trigger; const AlertDialogPortal = AlertDialogPrimitive.Portal; const AlertDialogOverlay = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName; const AlertDialogContent = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName; const AlertDialogHeader = ({ className, ...props }: React.HTMLAttributes) => ( 
+); AlertDialogHeader.displayName = "AlertDialogHeader"; const AlertDialogFooter = ({ className, ...props }: React.HTMLAttributes) => ( 
+); AlertDialogFooter.displayName = "AlertDialogFooter"; const AlertDialogTitle = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName; const AlertDialogDescription = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayName; const AlertDialogAction = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName; const AlertDialogCancel = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName; export { AlertDialog, AlertDialogPortal, AlertDialogOverlay, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel, }; import * as React from "react"; import { cva, type VariantProps } from "class-variance-authority"; import { cn } from "@/lib/utils"; const alertVariants = cva( "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground", { variants: { variant: { default: "bg-background text-foreground", destructive: "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive", }, }, defaultVariants: { variant: "default", }, }, ); const Alert = React.forwardRef< HTMLDivElement, React.HTMLAttributes & VariantProps >(({ className, variant, ...props }, ref) => ( 
+)); Alert.displayName = "Alert"; const AlertTitle = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); AlertTitle.displayName = "AlertTitle"; const AlertDescription = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); AlertDescription.displayName = "AlertDescription"; export { Alert, AlertTitle, AlertDescription }; import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio"; const AspectRatio = AspectRatioPrimitive.Root; export { AspectRatio };
+
+import * as React from "react"; import * as AvatarPrimitive from "@radix-ui/react-avatar"; import { cn } from "@/lib/utils"; const Avatar = React.forwardRef< React.ElementRef<typeof AvatarPrimitive.Root>, React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> >(({ className, ...props }, ref) => ( <AvatarPrimitive.Root ref={ref} className={cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)} {...props} /> )); Avatar.displayName = AvatarPrimitive.Root.displayName; const AvatarImage = React.forwardRef< React.ElementRef<typeof AvatarPrimitive.Image>, React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> >(({ className, ...props }, ref) => ( <AvatarPrimitive.Image ref={ref} className={cn("aspect-square h-full w-full", className)} {...props} /> )); AvatarImage.displayName = AvatarPrimitive.Image.displayName; const AvatarFallback = React.forwardRef< React.ElementRef<typeof AvatarPrimitive.Fallback>, React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback> >(({ className, ...props }, ref) => ( <AvatarPrimitive.Fallback ref={ref} className={cn("flex h-full w-full items-center justify-center rounded-full bg-muted", className)} {...props} /> )); AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName; export { Avatar, AvatarImage, AvatarFallback }; 
+import * as React from "react"; import { cva, type VariantProps } from "class-variance-authority"; import { cn } from "@/lib/utils"; const badgeVariants = cva( "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2", { variants: { variant: { default: "border-transparent bg-primary text-primary-foreground hover:bg-primary/80", secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80", destructive: "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80", outline: "text-foreground", }, }, defaultVariants: { variant: "default", }, }, ); export interface BadgeProps extends React.HTMLAttributes, VariantProps {} function Badge({ className, variant, ...props }: BadgeProps) { return 
+; } export { Badge, badgeVariants }; import * as React from "react"; import { Slot } from "@radix-ui/react-slot"; import { ChevronRight, MoreHorizontal } from "lucide-react"; import { cn } from "@/lib/utils"; const Breadcrumb = React.forwardRef< HTMLElement, React.ComponentPropsWithoutRef<"nav"> & { separator?: React.ReactNode; } >(({ ...props }, ref) => ); Breadcrumb.displayName = "Breadcrumb"; const BreadcrumbList = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); BreadcrumbList.displayName = "BreadcrumbList"; const BreadcrumbItem = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); BreadcrumbItem.displayName = "BreadcrumbItem"; const BreadcrumbLink = React.forwardRef< HTMLAnchorElement, React.ComponentPropsWithoutRef<"a"> & { asChild?: boolean; } >(({ asChild, className, ...props }, ref) => { const Comp = asChild ? Slot : "a"; return ; }); BreadcrumbLink.displayName = "BreadcrumbLink"; const BreadcrumbPage = React.forwardRef>( ({ className, ...props }, ref) => ( ), ); BreadcrumbPage.displayName = "BreadcrumbPage"; const BreadcrumbSeparator = ({ children, className, ...props }: React.ComponentProps<"li">) => ( 
+svg]:size-3.5", className)} {...props}> {children ?? } 
+); BreadcrumbSeparator.displayName = "BreadcrumbSeparator"; const BreadcrumbEllipsis = ({ className, ...props }: React.ComponentProps<"span">) => ( More ); BreadcrumbEllipsis.displayName = "BreadcrumbElipssis"; export { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis, }; 
+import * as React from "react"; import { Slot } from "@radix-ui/react-slot"; import { cva, type VariantProps } from "class-variance-authority"; import { cn } from "@/lib/utils"; const buttonVariants = cva( "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0", { variants: { variant: { default: "bg-primary text-primary-foreground hover:bg-primary/90", destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90", outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground", secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80", ghost: "hover:bg-accent hover:text-accent-foreground", link: "text-primary underline-offset-4 hover:underline", }, size: { default: "h-10 px-4 py-2", sm: "h-9 rounded-md px-3", lg: "h-11 rounded-md px-8", icon: "h-10 w-10", }, }, defaultVariants: { variant: "default", size: "default", }, }, ); export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> { asChild?: boolean; } const Button = React.forwardRef<HTMLButtonElement, ButtonProps>( ({ className, variant, size, asChild = false, ...props }, ref) => { const Comp = asChild ? Slot : "button"; return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />; }, ); Button.displayName = "Button"; export { Button, buttonVariants };
+
+import * as React from "react"; import { ChevronLeft, ChevronRight } from "lucide-react"; import { DayPicker } from "react-day-picker"; import { cn } from "@/lib/utils"; import { buttonVariants } from "@/components/ui/button"; export type CalendarProps = React.ComponentProps<typeof DayPicker>; function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) { return ( <DayPicker showOutsideDays={showOutsideDays} className={cn("p-3", className)} classNames={{ months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0", month: "space-y-4", caption: "flex justify-center pt-1 relative items-center", caption_label: "text-sm font-medium", nav: "space-x-1 flex items-center", nav_button: cn( buttonVariants({ variant: "outline" }), "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100", ), nav_button_previous: "absolute left-1", nav_button_next: "absolute right-1", table: "w-full border-collapse space-y-1", head_row: "flex", head_cell: "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]", row: "flex w-full mt-2", cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20", day: cn(buttonVariants({ variant: "ghost" }), "h-9 w-9 p-0 font-normal aria-selected:opacity-100"), day_range_end: "day-range-end", day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground", day_today: "bg-accent text-accent-foreground", day_outside: "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30", day_disabled: "text-muted-foreground opacity-50", day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground", day_hidden: "invisible", ...classNames, }} components={{ IconLeft: ({ ..._props }) => <ChevronLeft className="h-4 w-4" />, IconRight: ({ ..._props }) => <ChevronRight className="h-4 w-4" />, }} {...props} /> ); } Calendar.displayName = "Calendar"; export { Calendar }; 
+import * as React from "react"; import { cn } from "@/lib/utils"; const Card = React.forwardRef>(({ className, ...props }, ref) => ( 
+)); Card.displayName = "Card"; const CardHeader = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); CardHeader.displayName = "CardHeader"; const CardTitle = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); CardTitle.displayName = "CardTitle"; const CardDescription = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); CardDescription.displayName = "CardDescription"; const CardContent = React.forwardRef>( ({ className, ...props }, ref) => 
+, ); CardContent.displayName = "CardContent"; const CardFooter = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); CardFooter.displayName = "CardFooter"; export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }; 
+import * as React from "react"; import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react"; import { ArrowLeft, ArrowRight } from "lucide-react"; import { cn } from "@/lib/utils"; import { Button } from "@/components/ui/button"; type CarouselApi = UseEmblaCarouselType[1]; type UseCarouselParameters = Parameters; type CarouselOptions = UseCarouselParameters[0]; type CarouselPlugin = UseCarouselParameters[1]; type CarouselProps = { opts?: CarouselOptions; plugins?: CarouselPlugin; orientation?: "horizontal" | "vertical"; setApi?: (api: CarouselApi) => void; }; type CarouselContextProps = { carouselRef: ReturnType[0]; api: ReturnType[1]; scrollPrev: () => void; scrollNext: () => void; canScrollPrev: boolean; canScrollNext: boolean; } & CarouselProps; const CarouselContext = React.createContext(null); function useCarousel() { const context = React.useContext(CarouselContext); if (!context) { throw new Error("useCarousel must be used within a "); } return context; } const Carousel = React.forwardRef & CarouselProps>( ({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => { const [carouselRef, api] = useEmblaCarousel( { ...opts, axis: orientation === "horizontal" ? "x" : "y", }, plugins, ); const [canScrollPrev, setCanScrollPrev] = React.useState(false); const [canScrollNext, setCanScrollNext] = React.useState(false); const onSelect = React.useCallback((api: CarouselApi) => { if (!api) { return; } setCanScrollPrev(api.canScrollPrev()); setCanScrollNext(api.canScrollNext()); }, []); const scrollPrev = React.useCallback(() => { api?.scrollPrev(); }, [api]); const scrollNext = React.useCallback(() => { api?.scrollNext(); }, [api]); const handleKeyDown = React.useCallback( (event: React.KeyboardEvent) => { if (event.key === "ArrowLeft") { event.preventDefault(); scrollPrev(); } else if (event.key === "ArrowRight") { event.preventDefault(); scrollNext(); } }, [scrollPrev, scrollNext], ); React.useEffect(() => { if (!api || !setApi) { return; } setApi(api); }, [api, setApi]); React.useEffect(() => { if (!api) { return; } onSelect(api); api.on("reInit", onSelect); api.on("select", onSelect); return () => { api?.off("select", onSelect); }; }, [api, onSelect]); return ( 
+{children} 
+); }, ); Carousel.displayName = "Carousel"; const CarouselContent = React.forwardRef>( ({ className, ...props }, ref) => { const { carouselRef, orientation } = useCarousel(); return ( 
+); }, ); CarouselContent.displayName = "CarouselContent"; const CarouselItem = React.forwardRef>( ({ className, ...props }, ref) => { const { orientation } = useCarousel(); return ( 
+); }, ); CarouselItem.displayName = "CarouselItem"; const CarouselPrevious = React.forwardRef>( ({ className, variant = "outline", size = "icon", ...props }, ref) => { const { orientation, scrollPrev, canScrollPrev } = useCarousel(); return ( Previous slide ); }, ); CarouselPrevious.displayName = "CarouselPrevious"; const CarouselNext = React.forwardRef>( ({ className, variant = "outline", size = "icon", ...props }, ref) => { const { orientation, scrollNext, canScrollNext } = useCarousel(); return ( Next slide ); }, ); CarouselNext.displayName = "CarouselNext"; export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext }; 
+import * as React from "react"; import * as RechartsPrimitive from "recharts"; import { cn } from "@/lib/utils"; // Format: { THEME_NAME: CSS_SELECTOR } const THEMES = { light: "", dark: ".dark" } as const; export type ChartConfig = { [k in string]: { label?: React.ReactNode; icon?: React.ComponentType; } & ({ color?: string; theme?: never } | { color?: never; theme: Record }); }; type ChartContextProps = { config: ChartConfig; }; const ChartContext = React.createContext(null); function useChart() { const context = React.useContext(ChartContext); if (!context) { throw new Error("useChart must be used within a "); } return context; } const ChartContainer = React.forwardRef< HTMLDivElement, React.ComponentProps<"div"> & { config: ChartConfig; children: React.ComponentProps["children"]; } >(({ id, className, children, config, ...props }, ref) => { const uniqueId = React.useId(); const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`; return ( 
+{children} 
+); }); ChartContainer.displayName = "Chart"; const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => { const colorConfig = Object.entries(config).filter(([_, config]) => config.theme || config.color); if (!colorConfig.length) { return null; } return ( 
+import * as React from "react"; import * as CheckboxPrimitive from "@radix-ui/react-checkbox"; import { Check } from "lucide-react"; import { cn } from "@/lib/utils"; const Checkbox = React.forwardRef< React.ElementRef<typeof CheckboxPrimitive.Root>, React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> >(({ className, ...props }, ref) => ( <CheckboxPrimitive.Root ref={ref} className={cn( "peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className, )} {...props} > <CheckboxPrimitive.Indicator className={cn("flex items-center justify-center text-current")}> <Check className="h-4 w-4" /> </CheckboxPrimitive.Indicator> </CheckboxPrimitive.Root> )); Checkbox.displayName = CheckboxPrimitive.Root.displayName; export { Checkbox }; 
+import * as CollapsiblePrimitive from "@radix-ui/react-collapsible"; const Collapsible = CollapsiblePrimitive.Root; const CollapsibleTrigger = CollapsiblePrimitive.CollapsibleTrigger; const CollapsibleContent = CollapsiblePrimitive.CollapsibleContent; export { Collapsible, CollapsibleTrigger, CollapsibleContent }; 
+
+import * as React from "react"; import { type DialogProps } from "@radix-ui/react-dialog"; import { Command as CommandPrimitive } from "cmdk"; import { Search } from "lucide-react"; import { cn } from "@/lib/utils"; import { Dialog, DialogContent } from "@/components/ui/dialog"; const Command = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); Command.displayName = CommandPrimitive.displayName; interface CommandDialogProps extends DialogProps {} const CommandDialog = ({ children, ...props }: CommandDialogProps) => { return ( {children} ); }; const CommandInput = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( 
+)); CommandInput.displayName = CommandPrimitive.Input.displayName; const CommandList = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); CommandList.displayName = CommandPrimitive.List.displayName; const CommandEmpty = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >((props, ref) => ); CommandEmpty.displayName = CommandPrimitive.Empty.displayName; const CommandGroup = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); CommandGroup.displayName = CommandPrimitive.Group.displayName; const CommandSeparator = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); CommandSeparator.displayName = CommandPrimitive.Separator.displayName; const CommandItem = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); CommandItem.displayName = CommandPrimitive.Item.displayName; const CommandShortcut = ({ className, ...props }: React.HTMLAttributes) => { return ; }; CommandShortcut.displayName = "CommandShortcut"; export { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator, }; 
+
+import * as React from "react"; import * as ContextMenuPrimitive from "@radix-ui/react-context-menu"; import { Check, ChevronRight, Circle } from "lucide-react"; import { cn } from "@/lib/utils"; const ContextMenu = ContextMenuPrimitive.Root; const ContextMenuTrigger = ContextMenuPrimitive.Trigger; const ContextMenuGroup = ContextMenuPrimitive.Group; const ContextMenuPortal = ContextMenuPrimitive.Portal; const ContextMenuSub = ContextMenuPrimitive.Sub; const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup; const ContextMenuSubTrigger = React.forwardRef< React.ElementRef<typeof ContextMenuPrimitive.SubTrigger>, React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubTrigger> & { inset?: boolean; } >(({ className, inset, children, ...props }, ref) => ( <ContextMenuPrimitive.SubTrigger ref={ref} className={cn( "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[state=open]:bg-accent data-[state=open]:text-accent-foreground focus:bg-accent focus:text-accent-foreground", inset && "pl-8", className, )} {...props} > {children} <ChevronRight className="ml-auto h-4 w-4" /> </ContextMenuPrimitive.SubTrigger> )); ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName; const ContextMenuSubContent = React.forwardRef< React.ElementRef<typeof ContextMenuPrimitive.SubContent>, React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent> >(({ className, ...props }, ref) => ( <ContextMenuPrimitive.SubContent ref={ref} className={cn( "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className, )} {...props} /> )); ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName; const ContextMenuContent = React.forwardRef< React.ElementRef<typeof ContextMenuPrimitive.Content>, React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Content> >(({ className, ...props }, ref) => ( <ContextMenuPrimitive.Portal> <ContextMenuPrimitive.Content ref={ref} className={cn( "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md animate-in fade-in-80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className, )} {...props} /> </ContextMenuPrimitive.Portal> )); ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName; const ContextMenuItem = React.forwardRef< React.ElementRef<typeof ContextMenuPrimitive.Item>, React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Item> & { inset?: boolean; } >(({ className, inset, ...props }, ref) => ( <ContextMenuPrimitive.Item ref={ref} className={cn( "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", inset && "pl-8", className, )} {...props} /> )); ContextMenuItem.displayName = ContextMenuPrimitive.Item.displayName; const ContextMenuCheckboxItem = React.forwardRef< React.ElementRef<typeof ContextMenuPrimitive.CheckboxItem>, React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem> >(({ className, children, checked, ...props }, ref) => ( <ContextMenuPrimitive.CheckboxItem ref={ref} className={cn( "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", className, )} checked={checked} {...props} > <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"> <ContextMenuPrimitive.ItemIndicator> <Check className="h-4 w-4" /> </ContextMenuPrimitive.ItemIndicator> </span> {children} </ContextMenuPrimitive.CheckboxItem> )); ContextMenuCheckboxItem.displayName = ContextMenuPrimitive.CheckboxItem.displayName; const ContextMenuRadioItem = React.forwardRef< React.ElementRef<typeof ContextMenuPrimitive.RadioItem>, React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem> >(({ className, children, ...props }, ref) => ( <ContextMenuPrimitive.RadioItem ref={ref} className={cn( "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", className, )} {...props} > <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"> <ContextMenuPrimitive.ItemIndicator> <Circle className="h-2 w-2 fill-current" /> </ContextMenuPrimitive.ItemIndicator> </span> {children} </ContextMenuPrimitive.RadioItem> )); ContextMenuRadioItem.displayName = ContextMenuPrimitive.RadioItem.displayName; const ContextMenuLabel = React.forwardRef< React.ElementRef<typeof ContextMenuPrimitive.Label>, React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Label> & { inset?: boolean; } >(({ className, inset, ...props }, ref) => ( <ContextMenuPrimitive.Label ref={ref} className={cn("px-2 py-1.5 text-sm font-semibold text-foreground", inset && "pl-8", className)} {...props} /> )); ContextMenuLabel.displayName = ContextMenuPrimitive.Label.displayName; const ContextMenuSeparator = React.forwardRef< React.ElementRef<typeof ContextMenuPrimitive.Separator>, React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Separator> >(({ className, ...props }, ref) => ( <ContextMenuPrimitive.Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-border", className)} {...props} /> )); ContextMenuSeparator.displayName = ContextMenuPrimitive.Separator.displayName; const ContextMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => { return <span className={cn("ml-auto text-xs tracking-widest text-muted-foreground", className)} {...props} />; }; ContextMenuShortcut.displayName = "ContextMenuShortcut"; export { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuRadioItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut, ContextMenuGroup, ContextMenuPortal, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuRadioGroup, }; 
+import * as React from "react"; import * as DialogPrimitive from "@radix-ui/react-dialog"; import { X } from "lucide-react"; import { cn } from "@/lib/utils"; const Dialog = DialogPrimitive.Root; const DialogTrigger = DialogPrimitive.Trigger; const DialogPortal = DialogPrimitive.Portal; const DialogClose = DialogPrimitive.Close; const DialogOverlay = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); DialogOverlay.displayName = DialogPrimitive.Overlay.displayName; const DialogContent = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, children, ...props }, ref) => ( {children} Close )); DialogContent.displayName = DialogPrimitive.Content.displayName; const DialogHeader = ({ className, ...props }: React.HTMLAttributes) => ( 
+); DialogHeader.displayName = "DialogHeader"; const DialogFooter = ({ className, ...props }: React.HTMLAttributes) => ( 
+); DialogFooter.displayName = "DialogFooter"; const DialogTitle = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); DialogTitle.displayName = DialogPrimitive.Title.displayName; const DialogDescription = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); DialogDescription.displayName = DialogPrimitive.Description.displayName; export { Dialog, DialogPortal, DialogOverlay, DialogClose, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, }; import * as React from "react"; import { Drawer as DrawerPrimitive } from "vaul"; import { cn } from "@/lib/utils"; const Drawer = ({ shouldScaleBackground = true, ...props }: React.ComponentProps) => ( ); Drawer.displayName = "Drawer"; const DrawerTrigger = DrawerPrimitive.Trigger; const DrawerPortal = DrawerPrimitive.Portal; const DrawerClose = DrawerPrimitive.Close; const DrawerOverlay = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName; const DrawerContent = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, children, ...props }, ref) => ( 
+{children} )); DrawerContent.displayName = "DrawerContent"; const DrawerHeader = ({ className, ...props }: React.HTMLAttributes) => ( 
+); DrawerHeader.displayName = "DrawerHeader"; const DrawerFooter = ({ className, ...props }: React.HTMLAttributes) => ( 
+); DrawerFooter.displayName = "DrawerFooter"; const DrawerTitle = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); DrawerTitle.displayName = DrawerPrimitive.Title.displayName; const DrawerDescription = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); DrawerDescription.displayName = DrawerPrimitive.Description.displayName; export { Drawer, DrawerPortal, DrawerOverlay, DrawerTrigger, DrawerClose, DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerDescription, }; 
+import * as React from "react"; import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"; import { Check, ChevronRight, Circle } from "lucide-react"; import { cn } from "@/lib/utils"; const DropdownMenu = DropdownMenuPrimitive.Root; const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger; const DropdownMenuGroup = DropdownMenuPrimitive.Group; const DropdownMenuPortal = DropdownMenuPrimitive.Portal; const DropdownMenuSub = DropdownMenuPrimitive.Sub; const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup; const DropdownMenuSubTrigger = React.forwardRef< React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & { inset?: boolean; } >(({ className, inset, children, ...props }, ref) => ( <DropdownMenuPrimitive.SubTrigger ref={ref} className={cn( "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[state=open]:bg-accent focus:bg-accent", inset && "pl-8", className, )} {...props} > {children} <ChevronRight className="ml-auto h-4 w-4" /> </DropdownMenuPrimitive.SubTrigger> )); DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName; const DropdownMenuSubContent = React.forwardRef< React.ElementRef<typeof DropdownMenuPrimitive.SubContent>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent> >(({ className, ...props }, ref) => ( <DropdownMenuPrimitive.SubContent ref={ref} className={cn( "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className, )} {...props} /> )); DropdownMenuSubContent.displayName = DropdownMenuPrimitive.SubContent.displayName; const DropdownMenuContent = React.forwardRef< React.ElementRef<typeof DropdownMenuPrimitive.Content>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> >(({ className, sideOffset = 4, ...props }, ref) => ( <DropdownMenuPrimitive.Portal> <DropdownMenuPrimitive.Content ref={ref} sideOffset={sideOffset} className={cn( "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className, )} {...props} /> </DropdownMenuPrimitive.Portal> )); DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName; const DropdownMenuItem = React.forwardRef< React.ElementRef<typeof DropdownMenuPrimitive.Item>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & { inset?: boolean; } >(({ className, inset, ...props }, ref) => ( <DropdownMenuPrimitive.Item ref={ref} className={cn( "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", inset && "pl-8", className, )} {...props} /> )); DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName; const DropdownMenuCheckboxItem = React.forwardRef< React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem> >(({ className, children, checked, ...props }, ref) => ( <DropdownMenuPrimitive.CheckboxItem ref={ref} className={cn( "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", className, )} checked={checked} {...props} > <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"> <DropdownMenuPrimitive.ItemIndicator> <Check className="h-4 w-4" /> </DropdownMenuPrimitive.ItemIndicator> </span> {children} </DropdownMenuPrimitive.CheckboxItem> )); DropdownMenuCheckboxItem.displayName = DropdownMenuPrimitive.CheckboxItem.displayName; const DropdownMenuRadioItem = React.forwardRef< React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem> >(({ className, children, ...props }, ref) => ( <DropdownMenuPrimitive.RadioItem ref={ref} className={cn( "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", className, )} {...props} > <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"> <DropdownMenuPrimitive.ItemIndicator> <Circle className="h-2 w-2 fill-current" /> </DropdownMenuPrimitive.ItemIndicator> </span> {children} </DropdownMenuPrimitive.RadioItem> )); DropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName; const DropdownMenuLabel = React.forwardRef< React.ElementRef<typeof DropdownMenuPrimitive.Label>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & { inset?: boolean; } >(({ className, inset, ...props }, ref) => ( <DropdownMenuPrimitive.Label ref={ref} className={cn("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", className)} {...props} /> )); DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName; const DropdownMenuSeparator = React.forwardRef< React.ElementRef<typeof DropdownMenuPrimitive.Separator>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator> >(({ className, ...props }, ref) => ( <DropdownMenuPrimitive.Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-muted", className)} {...props} /> )); DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName; const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => { return <span className={cn("ml-auto text-xs tracking-widest opacity-60", className)} {...props} />; }; DropdownMenuShortcut.displayName = "DropdownMenuShortcut"; export { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuGroup, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuRadioGroup, }; 
+import * as React from "react"; import * as LabelPrimitive from "@radix-ui/react-label"; import { Slot } from "@radix-ui/react-slot"; import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext } from "react-hook-form"; import { cn } from "@/lib/utils"; import { Label } from "@/components/ui/label"; const Form = FormProvider; type FormFieldContextValue< TFieldValues extends FieldValues = FieldValues, TName extends FieldPath = FieldPath, > = { name: TName; }; const FormFieldContext = React.createContext({} as FormFieldContextValue); const FormField = < TFieldValues extends FieldValues = FieldValues, TName extends FieldPath = FieldPath, >({ ...props }: ControllerProps) => { return ( ); }; const useFormField = () => { const fieldContext = React.useContext(FormFieldContext); const itemContext = React.useContext(FormItemContext); const { getFieldState, formState } = useFormContext(); const fieldState = getFieldState(fieldContext.name, formState); if (!fieldContext) { throw new Error("useFormField should be used within "); } const { id } = itemContext; return { id, name: fieldContext.name, formItemId: `${id}-form-item`, formDescriptionId: `${id}-form-item-description`, formMessageId: `${id}-form-item-message`, ...fieldState, }; }; type FormItemContextValue = { id: string; }; const FormItemContext = React.createContext({} as FormItemContextValue); const FormItem = React.forwardRef>( ({ className, ...props }, ref) => { const id = React.useId(); return ( 
+); }, ); FormItem.displayName = "FormItem"; const FormLabel = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => { const { error, formItemId } = useFormField(); return ; }); FormLabel.displayName = "FormLabel"; const FormControl = React.forwardRef, React.ComponentPropsWithoutRef>( ({ ...props }, ref) => { const { error, formItemId, formDescriptionId, formMessageId } = useFormField(); return ( ); }, ); FormControl.displayName = "FormControl"; const FormDescription = React.forwardRef>( ({ className, ...props }, ref) => { const { formDescriptionId } = useFormField(); return 
+; }, ); FormDescription.displayName = "FormDescription"; const FormMessage = React.forwardRef>( ({ className, children, ...props }, ref) => { const { error, formMessageId } = useFormField(); const body = error ? String(error?.message) : children; if (!body) { return null; } return ( 
+{body} 
+); }, ); FormMessage.displayName = "FormMessage"; export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField }; 
+import * as React from "react"; import * as HoverCardPrimitive from "@radix-ui/react-hover-card"; import { cn } from "@/lib/utils"; const HoverCard = HoverCardPrimitive.Root; const HoverCardTrigger = HoverCardPrimitive.Trigger; const HoverCardContent = React.forwardRef< React.ElementRef<typeof HoverCardPrimitive.Content>, React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content> >(({ className, align = "center", sideOffset = 4, ...props }, ref) => ( <HoverCardPrimitive.Content ref={ref} align={align} sideOffset={sideOffset} className={cn( "z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className, )} {...props} /> )); HoverCardContent.displayName = HoverCardPrimitive.Content.displayName; export { HoverCard, HoverCardTrigger, HoverCardContent }; 
+
+import * as React from "react"; import { OTPInput, OTPInputContext } from "input-otp"; import { Dot } from "lucide-react"; import { cn } from "@/lib/utils"; const InputOTP = React.forwardRef, React.ComponentPropsWithoutRef>( ({ className, containerClassName, ...props }, ref) => ( ), ); InputOTP.displayName = "InputOTP"; const InputOTPGroup = React.forwardRef, React.ComponentPropsWithoutRef<"div">>( ({ className, ...props }, ref) => 
+, ); InputOTPGroup.displayName = "InputOTPGroup"; const InputOTPSlot = React.forwardRef< React.ElementRef<"div">, React.ComponentPropsWithoutRef<"div"> & { index: number } >(({ index, className, ...props }, ref) => { const inputOTPContext = React.useContext(OTPInputContext); const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]; return ( 
+{char} {hasFakeCaret && ( 
+)} 
+); }); InputOTPSlot.displayName = "InputOTPSlot"; const InputOTPSeparator = React.forwardRef, React.ComponentPropsWithoutRef<"div">>( ({ ...props }, ref) => ( 
+), ); InputOTPSeparator.displayName = "InputOTPSeparator"; export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }; 
+import * as React from "react"; import { cn } from "@/lib/utils"; const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>( ({ className, type, ...props }, ref) => { return ( <input type={type} className={cn( "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className, )} ref={ref} {...props} /> ); }, ); Input.displayName = "Input"; export { Input }; 
+import * as React from "react"; import * as LabelPrimitive from "@radix-ui/react-label"; import { cva, type VariantProps } from "class-variance-authority"; import { cn } from "@/lib/utils"; const labelVariants = cva("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"); const Label = React.forwardRef< React.ElementRef<typeof LabelPrimitive.Root>, React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & VariantProps<typeof labelVariants> >(({ className, ...props }, ref) => ( <LabelPrimitive.Root ref={ref} className={cn(labelVariants(), className)} {...props} /> )); Label.displayName = LabelPrimitive.Root.displayName; export { Label }; 
+import * as React from "react"; import * as MenubarPrimitive from "@radix-ui/react-menubar"; import { Check, ChevronRight, Circle } from "lucide-react"; import { cn } from "@/lib/utils"; const MenubarMenu = MenubarPrimitive.Menu; const MenubarGroup = MenubarPrimitive.Group; const MenubarPortal = MenubarPrimitive.Portal; const MenubarSub = MenubarPrimitive.Sub; const MenubarRadioGroup = MenubarPrimitive.RadioGroup; const Menubar = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.Root>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Root> >(({ className, ...props }, ref) => ( <MenubarPrimitive.Root ref={ref} className={cn("flex h-10 items-center space-x-1 rounded-md border bg-background p-1", className)} {...props} /> )); Menubar.displayName = MenubarPrimitive.Root.displayName; const MenubarTrigger = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.Trigger>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Trigger> >(({ className, ...props }, ref) => ( <MenubarPrimitive.Trigger ref={ref} className={cn( "flex cursor-default select-none items-center rounded-sm px-3 py-1.5 text-sm font-medium outline-none data-[state=open]:bg-accent data-[state=open]:text-accent-foreground focus:bg-accent focus:text-accent-foreground", className, )} {...props} /> )); MenubarTrigger.displayName = MenubarPrimitive.Trigger.displayName; const MenubarSubTrigger = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.SubTrigger>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubTrigger> & { inset?: boolean; } >(({ className, inset, children, ...props }, ref) => ( <MenubarPrimitive.SubTrigger ref={ref} className={cn( "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[state=open]:bg-accent data-[state=open]:text-accent-foreground focus:bg-accent focus:text-accent-foreground", inset && "pl-8", className, )} {...props} > {children} <ChevronRight className="ml-auto h-4 w-4" /> </MenubarPrimitive.SubTrigger> )); MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName; const MenubarSubContent = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.SubContent>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubContent> >(({ className, ...props }, ref) => ( <MenubarPrimitive.SubContent ref={ref} className={cn( "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className, )} {...props} /> )); MenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName; const MenubarContent = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.Content>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Content> >(({ className, align = "start", alignOffset = -4, sideOffset = 8, ...props }, ref) => ( <MenubarPrimitive.Portal> <MenubarPrimitive.Content ref={ref} align={align} alignOffset={alignOffset} sideOffset={sideOffset} className={cn( "z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className, )} {...props} /> </MenubarPrimitive.Portal> )); MenubarContent.displayName = MenubarPrimitive.Content.displayName; const MenubarItem = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.Item>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Item> & { inset?: boolean; } >(({ className, inset, ...props }, ref) => ( <MenubarPrimitive.Item ref={ref} className={cn( "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", inset && "pl-8", className, )} {...props} /> )); MenubarItem.displayName = MenubarPrimitive.Item.displayName; const MenubarCheckboxItem = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.CheckboxItem>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.CheckboxItem> >(({ className, children, checked, ...props }, ref) => ( <MenubarPrimitive.CheckboxItem ref={ref} className={cn( "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", className, )} checked={checked} {...props} > <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"> <MenubarPrimitive.ItemIndicator> <Check className="h-4 w-4" /> </MenubarPrimitive.ItemIndicator> </span> {children} </MenubarPrimitive.CheckboxItem> )); MenubarCheckboxItem.displayName = MenubarPrimitive.CheckboxItem.displayName; const MenubarRadioItem = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.RadioItem>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.RadioItem> >(({ className, children, ...props }, ref) => ( <MenubarPrimitive.RadioItem ref={ref} className={cn( "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", className, )} {...props} > <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"> <MenubarPrimitive.ItemIndicator> <Circle className="h-2 w-2 fill-current" /> </MenubarPrimitive.ItemIndicator> </span> {children} </MenubarPrimitive.RadioItem> )); MenubarRadioItem.displayName = MenubarPrimitive.RadioItem.displayName; const MenubarLabel = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.Label>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Label> & { inset?: boolean; } >(({ className, inset, ...props }, ref) => ( <MenubarPrimitive.Label ref={ref} className={cn("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", className)} {...props} /> )); MenubarLabel.displayName = MenubarPrimitive.Label.displayName; const MenubarSeparator = React.forwardRef< React.ElementRef<typeof MenubarPrimitive.Separator>, React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Separator> >(({ className, ...props }, ref) => ( <MenubarPrimitive.Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-muted", className)} {...props} /> )); MenubarSeparator.displayName = MenubarPrimitive.Separator.displayName; const MenubarShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => { return <span className={cn("ml-auto text-xs tracking-widest text-muted-foreground", className)} {...props} />; }; MenubarShortcut.displayname = "MenubarShortcut"; export { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarLabel, MenubarCheckboxItem, MenubarRadioGroup, MenubarRadioItem, MenubarPortal, MenubarSubContent, MenubarSubTrigger, MenubarGroup, MenubarSub, MenubarShortcut, }; import * as React from "react"; import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"; import { cva } from "class-variance-authority"; import { ChevronDown } from "lucide-react"; import { cn } from "@/lib/utils"; const NavigationMenu = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, children, ...props }, ref) => ( {children} )); NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName; const NavigationMenuList = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName; const NavigationMenuItem = NavigationMenuPrimitive.Item; const navigationMenuTriggerStyle = cva( "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50", ); const NavigationMenuTrigger = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, children, ...props }, ref) => ( {children}{" "} )); NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName; const NavigationMenuContent = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName; const NavigationMenuLink = NavigationMenuPrimitive.Link; const NavigationMenuViewport = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( 
+)); NavigationMenuViewport.displayName = NavigationMenuPrimitive.Viewport.displayName; const NavigationMenuIndicator = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( 
+)); NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName; export { navigationMenuTriggerStyle, NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuContent, NavigationMenuTrigger, NavigationMenuLink, NavigationMenuIndicator, NavigationMenuViewport, };
+import * as React from "react"; import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"; import { cn } from "@/lib/utils"; import { ButtonProps, buttonVariants } from "@/components/ui/button"; const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => ( ); Pagination.displayName = "Pagination"; const PaginationContent = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); PaginationContent.displayName = "PaginationContent"; const PaginationItem = React.forwardRef>(({ className, ...props }, ref) => ( 
+)); PaginationItem.displayName = "PaginationItem"; type PaginationLinkProps = { isActive?: boolean; } & Pick & React.ComponentProps<"a">; const PaginationLink = ({ className, isActive, size = "icon", ...props }: PaginationLinkProps) => ( ); PaginationLink.displayName = "PaginationLink"; const PaginationPrevious = ({ className, ...props }: React.ComponentProps) => ( Previous ); PaginationPrevious.displayName = "PaginationPrevious"; const PaginationNext = ({ className, ...props }: React.ComponentProps) => ( Next ); PaginationNext.displayName = "PaginationNext"; const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<"span">) => ( More pages ); PaginationEllipsis.displayName = "PaginationEllipsis"; export { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, }; 
+import * as React from "react"; import * as PopoverPrimitive from "@radix-ui/react-popover"; import { cn } from "@/lib/utils"; const Popover = PopoverPrimitive.Root; const PopoverTrigger = PopoverPrimitive.Trigger; const PopoverContent = React.forwardRef< React.ElementRef<typeof PopoverPrimitive.Content>, React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> >(({ className, align = "center", sideOffset = 4, ...props }, ref) => ( <PopoverPrimitive.Portal> <PopoverPrimitive.Content ref={ref} align={align} sideOffset={sideOffset} className={cn( "z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className, )} {...props} /> </PopoverPrimitive.Portal> )); PopoverContent.displayName = PopoverPrimitive.Content.displayName; export { Popover, PopoverTrigger, PopoverContent }; import * as React from "react"; import * as ProgressPrimitive from "@radix-ui/react-progress"; import { cn } from "@/lib/utils"; const Progress = React.forwardRef< React.ElementRef<typeof ProgressPrimitive.Root>, React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> >(({ className, value, ...props }, ref) => ( <ProgressPrimitive.Root ref={ref} className={cn("relative h-4 w-full overflow-hidden rounded-full bg-secondary", className)} {...props} > <ProgressPrimitive.Indicator className="h-full w-full flex-1 bg-primary transition-all" style={{ transform: `translateX(-${100 - (value || 0)}%)` }} /> </ProgressPrimitive.Root> )); Progress.displayName = ProgressPrimitive.Root.displayName; export { Progress }; import * as React from "react"; import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"; import { Circle } from "lucide-react"; import { cn } from "@/lib/utils"; const RadioGroup = React.forwardRef< React.ElementRef<typeof RadioGroupPrimitive.Root>, React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> >(({ className, ...props }, ref) => { return <RadioGroupPrimitive.Root className={cn("grid gap-2", className)} {...props} ref={ref} />; }); RadioGroup.displayName = RadioGroupPrimitive.Root.displayName; const RadioGroupItem = React.forwardRef< React.ElementRef<typeof RadioGroupPrimitive.Item>, React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item> >(({ className, ...props }, ref) => { return ( <RadioGroupPrimitive.Item ref={ref} className={cn( "aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className, )} {...props} > <RadioGroupPrimitive.Indicator className="flex items-center justify-center"> <Circle className="h-2.5 w-2.5 fill-current text-current" /> </RadioGroupPrimitive.Indicator> </RadioGroupPrimitive.Item> ); }); RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName; export { RadioGroup, RadioGroupItem };
+import { GripVertical } from "lucide-react"; import * as ResizablePrimitive from "react-resizable-panels"; import { cn } from "@/lib/utils"; const ResizablePanelGroup = ({ className, ...props }: React.ComponentProps) => ( ); const ResizablePanel = ResizablePrimitive.Panel; const ResizableHandle = ({ withHandle, className, ...props }: React.ComponentProps & { withHandle?: boolean; }) => ( div]:rotate-90", className, )} {...props} > {withHandle && ( 
+)} ); export { ResizablePanelGroup, ResizablePanel, ResizableHandle }; import * as React from "react"; import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area"; import { cn } from "@/lib/utils"; const ScrollArea = React.forwardRef< React.ElementRef<typeof ScrollAreaPrimitive.Root>, React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> >(({ className, children, ...props }, ref) => ( <ScrollAreaPrimitive.Root ref={ref} className={cn("relative overflow-hidden", className)} {...props}> <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit]">{children}</ScrollAreaPrimitive.Viewport> <ScrollBar /> <ScrollAreaPrimitive.Corner /> </ScrollAreaPrimitive.Root> )); ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName; const ScrollBar = React.forwardRef< React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>, React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar> >(({ className, orientation = "vertical", ...props }, ref) => ( <ScrollAreaPrimitive.ScrollAreaScrollbar ref={ref} orientation={orientation} className={cn( "flex touch-none select-none transition-colors", orientation === "vertical" && "h-full w-2.5 border-l border-l-transparent p-[1px]", orientation === "horizontal" && "h-2.5 flex-col border-t border-t-transparent p-[1px]", className, )} {...props} > <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 rounded-full bg-border" /> </ScrollAreaPrimitive.ScrollAreaScrollbar> )); ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName; export { ScrollArea, ScrollBar }; import * as React from "react"; import * as SelectPrimitive from "@radix-ui/react-select"; import { Check, ChevronDown, ChevronUp } from "lucide-react"; import { cn } from "@/lib/utils"; const Select = SelectPrimitive.Root; const SelectGroup = SelectPrimitive.Group; const SelectValue = SelectPrimitive.Value; const SelectTrigger = React.forwardRef< React.ElementRef<typeof SelectPrimitive.Trigger>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> >(({ className, children, ...props }, ref) => ( <SelectPrimitive.Trigger ref={ref} className={cn( "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1", className, )} {...props} > {children} <SelectPrimitive.Icon asChild> <ChevronDown className="h-4 w-4 opacity-50" /> </SelectPrimitive.Icon> </SelectPrimitive.Trigger> )); SelectTrigger.displayName = SelectPrimitive.Trigger.displayName; const SelectScrollUpButton = React.forwardRef< React.ElementRef<typeof SelectPrimitive.ScrollUpButton>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton> >(({ className, ...props }, ref) => ( <SelectPrimitive.ScrollUpButton ref={ref} className={cn("flex cursor-default items-center justify-center py-1", className)} {...props} > <ChevronUp className="h-4 w-4" /> </SelectPrimitive.ScrollUpButton> )); SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName; const SelectScrollDownButton = React.forwardRef< React.ElementRef<typeof SelectPrimitive.ScrollDownButton>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton> >(({ className, ...props }, ref) => ( <SelectPrimitive.ScrollDownButton ref={ref} className={cn("flex cursor-default items-center justify-center py-1", className)} {...props} > <ChevronDown className="h-4 w-4" /> </SelectPrimitive.ScrollDownButton> )); SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName; const SelectContent = React.forwardRef< React.ElementRef<typeof SelectPrimitive.Content>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> >(({ className, children, position = "popper", ...props }, ref) => ( <SelectPrimitive.Portal> <SelectPrimitive.Content ref={ref} className={cn( "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1", className, )} position={position} {...props} > <SelectScrollUpButton /> <SelectPrimitive.Viewport className={cn( "p-1", position === "popper" && "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]", )} > {children} </SelectPrimitive.Viewport> <SelectScrollDownButton /> </SelectPrimitive.Content> </SelectPrimitive.Portal> )); SelectContent.displayName = SelectPrimitive.Content.displayName; const SelectLabel = React.forwardRef< React.ElementRef<typeof SelectPrimitive.Label>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> >(({ className, ...props }, ref) => ( <SelectPrimitive.Label ref={ref} className={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)} {...props} /> )); SelectLabel.displayName = SelectPrimitive.Label.displayName; const SelectItem = React.forwardRef< React.ElementRef<typeof SelectPrimitive.Item>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> >(({ className, children, ...props }, ref) => ( <SelectPrimitive.Item ref={ref} className={cn( "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-accent focus:text-accent-foreground", className, )} {...props} > <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"> <SelectPrimitive.ItemIndicator> <Check className="h-4 w-4" /> </SelectPrimitive.ItemIndicator> </span> <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText> </SelectPrimitive.Item> )); SelectItem.displayName = SelectPrimitive.Item.displayName; const SelectSeparator = React.forwardRef< React.ElementRef<typeof SelectPrimitive.Separator>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> >(({ className, ...props }, ref) => ( <SelectPrimitive.Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-muted", className)} {...props} /> )); SelectSeparator.displayName = SelectPrimitive.Separator.displayName; export { Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectItem, SelectSeparator, SelectScrollUpButton, SelectScrollDownButton, }; import * as React from "react"; import * as SeparatorPrimitive from "@radix-ui/react-separator"; import { cn } from "@/lib/utils"; const Separator = React.forwardRef< React.ElementRef<typeof SeparatorPrimitive.Root>, React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> >(({ className, orientation = "horizontal", decorative = true, ...props }, ref) => ( <SeparatorPrimitive.Root ref={ref} decorative={decorative} orientation={orientation} className={cn("shrink-0 bg-border", orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]", className)} {...props} /> )); Separator.displayName = SeparatorPrimitive.Root.displayName; export { Separator }; import * as SheetPrimitive from "@radix-ui/react-dialog"; import { cva, type VariantProps } from "class-variance-authority"; import { X } from "lucide-react"; import * as React from "react"; import { cn } from "@/lib/utils"; const Sheet = SheetPrimitive.Root; const SheetTrigger = SheetPrimitive.Trigger; const SheetClose = SheetPrimitive.Close; const SheetPortal = SheetPrimitive.Portal; const SheetOverlay = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); SheetOverlay.displayName = SheetPrimitive.Overlay.displayName; const sheetVariants = cva( "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500", { variants: { side: { top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top", bottom: "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom", left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm", right: "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm", }, }, defaultVariants: { side: "right", }, }, ); interface SheetContentProps extends React.ComponentPropsWithoutRef, VariantProps {} const SheetContent = React.forwardRef, SheetContentProps>( ({ side = "right", className, children, ...props }, ref) => ( {children} Close ), ); SheetContent.displayName = SheetPrimitive.Content.displayName; const SheetHeader = ({ className, ...props }: React.HTMLAttributes) => ( 
+); SheetHeader.displayName = "SheetHeader"; const SheetFooter = ({ className, ...props }: React.HTMLAttributes) => ( 
+); SheetFooter.displayName = "SheetFooter"; const SheetTitle = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); SheetTitle.displayName = SheetPrimitive.Title.displayName; const SheetDescription = React.forwardRef< React.ElementRef, React.ComponentPropsWithoutRef >(({ className, ...props }, ref) => ( )); SheetDescription.displayName = SheetPrimitive.Description.displayName; export { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetPortal, SheetTitle, SheetTrigger, }; import * as React from "react"; import { Slot } from "@radix-ui/react-slot"; import { VariantProps, cva } from "class-variance-authority"; import { PanelLeft } from "lucide-react"; import { useIsMobile } from "@/hooks/use-mobile"; import { cn } from "@/lib/utils"; import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Separator } from "@/components/ui/separator"; import { Sheet, SheetContent } from "@/components/ui/sheet"; import { Skeleton } from "@/components/ui/skeleton"; import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; const SIDEBAR_COOKIE_NAME = "sidebar:state"; const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; const SIDEBAR_WIDTH = "16rem"; const SIDEBAR_WIDTH_MOBILE = "18rem"; const SIDEBAR_WIDTH_ICON = "3rem"; const SIDEBAR_KEYBOARD_SHORTCUT = "b"; type SidebarContext = { state: "expanded" | "collapsed"; open: boolean; setOpen: (open: boolean) => void; openMobile: boolean; setOpenMobile: (open: boolean) => void; isMobile: boolean; toggleSidebar: () => void; }; const SidebarContext = React.createContext(null); function useSidebar() { const context = React.useContext(SidebarContext); if (!context) { throw new Error("useSidebar must be used within a SidebarProvider."); } return context; } const SidebarProvider = React.forwardRef< HTMLDivElement, React.ComponentProps<"div"> & { defaultOpen?: boolean; open?: boolean; onOpenChange?: (open: boolean) => void; } >(({ defaultOpen = true, open: openProp, onOpenChange: setOpenProp, className, style, children, ...props }, ref) => { const isMobile = useIsMobile(); const [openMobile, setOpenMobile] = React.useState(false); // This is the internal state of the sidebar. // We use openProp and setOpenProp for control from outside the component. const [_open, _setOpen] = React.useState(defaultOpen); const open = openProp ?? _open; const setOpen = React.useCallback( (value: boolean | ((value: boolean) => boolean)) => { const openState = typeof value === "function" ? value(open) : value; if (setOpenProp) { setOpenProp(openState); } else { _setOpen(openState); } // This sets the cookie to keep the sidebar state. document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`; }, [setOpenProp, open], ); // Helper to toggle the sidebar. const toggleSidebar = React.useCallback(() => { return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open); }, [isMobile, setOpen, setOpenMobile]); // Adds a keyboard shortcut to toggle the sidebar. React.useEffect(() => { const handleKeyDown = (event: KeyboardEvent) => { if (event.key === SIDEBAR_KEYBOARD_SHORTCUT && (event.metaKey || event.ctrlKey)) { event.preventDefault(); toggleSidebar(); } }; window.addEventListener("keydown", handleKeyDown); return () => window.removeEventListener("keydown", handleKeyDown); }, [toggleSidebar]); // We add a state so that we can do data-state="expanded" or "collapsed". // This makes it easier to style the sidebar with Tailwind classes. const state = open ? "expanded" : "collapsed"; const contextValue = React.useMemo( () => ({ state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, }), [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar], ); return ( 
+{children} 
+); }); SidebarProvider.displayName = "SidebarProvider"; const Sidebar = React.forwardRef< HTMLDivElement, React.ComponentProps<"div"> & { side?: "left" | "right"; variant?: "sidebar" | "floating" | "inset"; collapsible?: "offcanvas" | "icon" | "none"; } >(({ side = "left", variant = "sidebar", collapsible = "offcanvas", className, children, ...props }, ref) => { const { isMobile, state, openMobile, setOpenMobile } = useSidebar(); if (collapsible === "none") { return ( 
+{children} 
+); } if (isMobile) { return ( 
+{children}
+); } return ( 
+{/* This is what handles the sidebar gap on desktop */} 
+{children} 
+); }); Sidebar.displayName = "Sidebar"; const SidebarTrigger = React.forwardRef, React.ComponentProps>( ({ className, onClick, ...props }, ref) => { const { toggleSidebar } = useSidebar(); return ( { onClick?.(event); toggleSidebar(); }} {...props} > Toggle Sidebar ); }, ); SidebarTrigger.displayName = "SidebarTrigger"; const SidebarRail = React.forwardRef>( ({ className, ...props }, ref) => { const { toggleSidebar } = useSidebar(); return ( ); }, ); SidebarRail.displayName = "SidebarRail"; const SidebarInset = React.forwardRef>(({ className, ...props }, ref) => { return ( ); }); SidebarInset.displayName = "SidebarInset"; const SidebarInput = React.forwardRef, React.ComponentProps>( ({ className, ...props }, ref) => { return ( ); }, ); SidebarInput.displayName = "SidebarInput"; const SidebarHeader = React.forwardRef>(({ className, ...props }, ref) => { return 
+; }); SidebarHeader.displayName = "SidebarHeader"; const SidebarFooter = React.forwardRef>(({ className, ...props }, ref) => { return 
+; }); SidebarFooter.displayName = "SidebarFooter"; const SidebarSeparator = React.forwardRef, React.ComponentProps>( ({ className, ...props }, ref) => { return ( ); }, ); SidebarSeparator.displayName = "SidebarSeparator"; const SidebarContent = React.forwardRef>(({ className, ...props }, ref) => { return ( 
+); }); SidebarContent.displayName = "SidebarContent"; const SidebarGroup = React.forwardRef>(({ className, ...props }, ref) => { return ( 
+); }); SidebarGroup.displayName = "SidebarGroup"; const SidebarGroupLabel = React.forwardRef & { asChild?: boolean }>( ({ className, asChild = false, ...props }, ref) => { const Comp = asChild ? Slot : "div"; return ( svg]:size-4 [&>svg]:shrink-0", "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0", className, )} {...props} /> ); }, ); SidebarGroupLabel.displayName = "SidebarGroupLabel"; const SidebarGroupAction = React.forwardRef & { asChild?: boolean }>( ({ className, asChild = false, ...props }, ref) => { const Comp = asChild ? Slot : "button"; return ( svg]:size-4 [&>svg]:shrink-0", // Increases the hit area of the button on mobile. "after:absolute after:-inset-2 after:md:hidden", "group-data-[collapsible=icon]:hidden", className, )} {...props} /> ); }, ); SidebarGroupAction.displayName = "SidebarGroupAction"; const SidebarGroupContent = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); SidebarGroupContent.displayName = "SidebarGroupContent"; const SidebarMenu = React.forwardRef>(({ className, ...props }, ref) => ( 
+)); SidebarMenu.displayName = "SidebarMenu"; const SidebarMenuItem = React.forwardRef>(({ className, ...props }, ref) => ( 
+)); SidebarMenuItem.displayName = "SidebarMenuItem"; const sidebarMenuButtonVariants = cva( "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0", { variants: { variant: { default: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground", outline: "bg-background shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))]", }, size: { default: "h-8 text-sm", sm: "h-7 text-xs", lg: "h-12 text-sm group-data-[collapsible=icon]:!p-0", }, }, defaultVariants: { variant: "default", size: "default", }, }, ); const SidebarMenuButton = React.forwardRef< HTMLButtonElement, React.ComponentProps<"button"> & { asChild?: boolean; isActive?: boolean; tooltip?: string | React.ComponentProps; } & VariantProps >(({ asChild = false, isActive = false, variant = "default", size = "default", tooltip, className, ...props }, ref) => { const Comp = asChild ? Slot : "button"; const { isMobile, state } = useSidebar(); const button = ( ); if (!tooltip) { return button; } if (typeof tooltip === "string") { tooltip = { children: tooltip, }; } return ( {button} ); }); SidebarMenuButton.displayName = "SidebarMenuButton"; const SidebarMenuAction = React.forwardRef< HTMLButtonElement, React.ComponentProps<"button"> & { asChild?: boolean; showOnHover?: boolean; } >(({ className, asChild = false, showOnHover = false, ...props }, ref) => { const Comp = asChild ? Slot : "button"; return ( svg]:size-4 [&>svg]:shrink-0", // Increases the hit area of the button on mobile. "after:absolute after:-inset-2 after:md:hidden", "peer-data-[size=sm]/menu-button:top-1", "peer-data-[size=default]/menu-button:top-1.5", "peer-data-[size=lg]/menu-button:top-2.5", "group-data-[collapsible=icon]:hidden", showOnHover && "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0", className, )} {...props} /> ); }); SidebarMenuAction.displayName = "SidebarMenuAction"; const SidebarMenuBadge = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); SidebarMenuBadge.displayName = "SidebarMenuBadge"; const SidebarMenuSkeleton = React.forwardRef< HTMLDivElement, React.ComponentProps<"div"> & { showIcon?: boolean; } >(({ className, showIcon = false, ...props }, ref) => { // Random width between 50 to 90%. const width = React.useMemo(() => { return `${Math.floor(Math.random() * 40) + 50}%`; }, []); return ( 
+{showIcon && } 
+); }); SidebarMenuSkeleton.displayName = "SidebarMenuSkeleton"; const SidebarMenuSub = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); SidebarMenuSub.displayName = "SidebarMenuSub"; const SidebarMenuSubItem = React.forwardRef>(({ ...props }, ref) => ( 
+)); SidebarMenuSubItem.displayName = "SidebarMenuSubItem"; const SidebarMenuSubButton = React.forwardRef< HTMLAnchorElement, React.ComponentProps<"a"> & { asChild?: boolean; size?: "sm" | "md"; isActive?: boolean; } >(({ asChild = false, size = "md", isActive, className, ...props }, ref) => { const Comp = asChild ? Slot : "a"; return ( span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground", "data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground", size === "sm" && "text-xs", size === "md" && "text-sm", "group-data-[collapsible=icon]:hidden", className, )} {...props} /> ); }); SidebarMenuSubButton.displayName = "SidebarMenuSubButton"; export { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarInput, SidebarInset, SidebarMenu, SidebarMenuAction, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarMenuSkeleton, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarProvider, SidebarRail, SidebarSeparator, SidebarTrigger, useSidebar, }; import { cn } from "@/lib/utils"; function Skeleton({ className, ...props }: React.HTMLAttributes) { return 
+; } export { Skeleton }; import * as React from "react"; import * as SliderPrimitive from "@radix-ui/react-slider"; import { cn } from "@/lib/utils"; const Slider = React.forwardRef< React.ElementRef<typeof SliderPrimitive.Root>, React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> >(({ className, ...props }, ref) => ( <SliderPrimitive.Root ref={ref} className={cn("relative flex w-full touch-none select-none items-center", className)} {...props} > <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary"> <SliderPrimitive.Range className="absolute h-full bg-primary" /> </SliderPrimitive.Track> <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" /> </SliderPrimitive.Root> )); Slider.displayName = SliderPrimitive.Root.displayName; export { Slider }; import { useTheme } from "next-themes";
+import { Toaster as Sonner, toast } from "sonner";
+type ToasterProps = React.ComponentProps<typeof Sonner>;
+const Toaster = ({ ...props }: ToasterProps) => {
+const { theme = "system" } = useTheme();
+return (
+<Sonner
+theme={theme as ToasterProps["theme"]}
+className="toaster group"
+toastOptions={{
+classNames: {
+toast:
+"group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
+description: "group-[.toast]:text-muted-foreground",
+actionButton: "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
+cancelButton: "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+},
+}}
+{...props}
+/>
+);
+};
+export { Toaster, toast };
+import * as React from "react"; import * as SwitchPrimitives from "@radix-ui/react-switch"; import { cn } from "@/lib/utils"; const Switch = React.forwardRef< React.ElementRef<typeof SwitchPrimitives.Root>, React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> >(({ className, ...props }, ref) => ( <SwitchPrimitives.Root className={cn( "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50", className, )} {...props} ref={ref} > <SwitchPrimitives.Thumb className={cn( "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0", )} /> </SwitchPrimitives.Root> )); Switch.displayName = SwitchPrimitives.Root.displayName; export { Switch }; import * as React from "react"; import { cn } from "@/lib/utils"; const Table = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); Table.displayName = "Table"; const TableHeader = React.forwardRef>( ({ className, ...props }, ref) => , ); TableHeader.displayName = "TableHeader"; const TableBody = React.forwardRef>( ({ className, ...props }, ref) => ( ), ); TableBody.displayName = "TableBody"; const TableFooter = React.forwardRef>( ({ className, ...props }, ref) => ( tr]:last:border-b-0", className)} {...props} /> ), ); TableFooter.displayName = "TableFooter"; const TableRow = React.forwardRef>( ({ className, ...props }, ref) => ( ), ); TableRow.displayName = "TableRow"; const TableHead = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); TableHead.displayName = "TableHead"; const TableCell = React.forwardRef>( ({ className, ...props }, ref) => ( ), ); TableCell.displayName = "TableCell"; const TableCaption = React.forwardRef>( ({ className, ...props }, ref) => ( 
+), ); TableCaption.displayName = "TableCaption"; export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption }; import * as React from "react"; import * as TabsPrimitive from "@radix-ui/react-tabs"; import { cn } from "@/lib/utils"; const Tabs = TabsPrimitive.Root; const TabsList = React.forwardRef< React.ElementRef<typeof TabsPrimitive.List>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> >(({ className, ...props }, ref) => ( <TabsPrimitive.List ref={ref} className={cn( "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground", className, )} {...props} /> )); TabsList.displayName = TabsPrimitive.List.displayName; const TabsTrigger = React.forwardRef< React.ElementRef<typeof TabsPrimitive.Trigger>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> >(({ className, ...props }, ref) => ( <TabsPrimitive.Trigger ref={ref} className={cn( "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50", className, )} {...props} /> )); TabsTrigger.displayName = TabsPrimitive.Trigger.displayName; const TabsContent = React.forwardRef< React.ElementRef<typeof TabsPrimitive.Content>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> >(({ className, ...props }, ref) => ( <TabsPrimitive.Content ref={ref} className={cn( "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", className, )} {...props} /> )); TabsContent.displayName = TabsPrimitive.Content.displayName; export { Tabs, TabsList, TabsTrigger, TabsContent }; import * as React from "react"; import { cn } from "@/lib/utils"; export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {} const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, ...props }, ref) => { return ( <textarea className={cn( "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className, )} ref={ref} {...props} /> ); }); Textarea.displayName = "Textarea"; export { Textarea }; import * as React from "react"; import * as ToastPrimitives from "@radix-ui/react-toast"; import { cva, type VariantProps } from "class-variance-authority"; import { X } from "lucide-react"; import { cn } from "@/lib/utils"; const ToastProvider = ToastPrimitives.Provider; const ToastViewport = React.forwardRef< React.ElementRef<typeof ToastPrimitives.Viewport>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport> >(({ className, ...props }, ref) => ( <ToastPrimitives.Viewport ref={ref} className={cn( "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]", className, )} {...props} /> )); ToastViewport.displayName = ToastPrimitives.Viewport.displayName; const toastVariants = cva( "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full", { variants: { variant: { default: "border bg-background text-foreground", destructive: "destructive group border-destructive bg-destructive text-destructive-foreground", }, }, defaultVariants: { variant: "default", }, }, ); const Toast = React.forwardRef< React.ElementRef<typeof ToastPrimitives.Root>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> & VariantProps<typeof toastVariants> >(({ className, variant, ...props }, ref) => { return <ToastPrimitives.Root ref={ref} className={cn(toastVariants({ variant }), className)} {...props} />; }); Toast.displayName = ToastPrimitives.Root.displayName; const ToastAction = React.forwardRef< React.ElementRef<typeof ToastPrimitives.Action>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action> >(({ className, ...props }, ref) => ( <ToastPrimitives.Action ref={ref} className={cn( "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors group-[.destructive]:border-muted/40 hover:bg-secondary group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 group-[.destructive]:focus:ring-destructive disabled:pointer-events-none disabled:opacity-50", className, )} {...props} /> )); ToastAction.displayName = ToastPrimitives.Action.displayName; const ToastClose = React.forwardRef< React.ElementRef<typeof ToastPrimitives.Close>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close> >(({ className, ...props }, ref) => ( <ToastPrimitives.Close ref={ref} className={cn( "absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity group-hover:opacity-100 group-[.destructive]:text-red-300 hover:text-foreground group-[.destructive]:hover:text-red-50 focus:opacity-100 focus:outline-none focus:ring-2 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600", className, )} toast-close="" {...props} > <X className="h-4 w-4" /> </ToastPrimitives.Close> )); ToastClose.displayName = ToastPrimitives.Close.displayName; const ToastTitle = React.forwardRef< React.ElementRef<typeof ToastPrimitives.Title>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title> >(({ className, ...props }, ref) => ( <ToastPrimitives.Title ref={ref} className={cn("text-sm font-semibold", className)} {...props} /> )); ToastTitle.displayName = ToastPrimitives.Title.displayName; const ToastDescription = React.forwardRef< React.ElementRef<typeof ToastPrimitives.Description>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description> >(({ className, ...props }, ref) => ( <ToastPrimitives.Description ref={ref} className={cn("text-sm opacity-90", className)} {...props} /> )); ToastDescription.displayName = ToastPrimitives.Description.displayName; type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>; type ToastActionElement = React.ReactElement<typeof ToastAction>; export { type ToastProps, type ToastActionElement, ToastProvider, ToastViewport, Toast, ToastTitle, ToastDescription, ToastClose, ToastAction, }; import { useToast } from "@/hooks/use-toast"; import { Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from "@/components/ui/toast"; export function Toaster() { const { toasts } = useToast(); return ( {toasts.map(function ({ id, title, description, action, ...props }) { return ( 
+{title && {title}} {description && {description}} 
+{action} ); })} ); } import * as React from "react"; import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"; import { type VariantProps } from "class-variance-authority"; import { cn } from "@/lib/utils"; import { toggleVariants } from "@/components/ui/toggle"; const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants>>({ size: "default", variant: "default", }); const ToggleGroup = React.forwardRef< React.ElementRef<typeof ToggleGroupPrimitive.Root>, React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants> >(({ className, variant, size, children, ...props }, ref) => ( <ToggleGroupPrimitive.Root ref={ref} className={cn("flex items-center justify-center gap-1", className)} {...props}> <ToggleGroupContext.Provider value={{ variant, size }}>{children}</ToggleGroupContext.Provider> </ToggleGroupPrimitive.Root> )); ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName; const ToggleGroupItem = React.forwardRef< React.ElementRef<typeof ToggleGroupPrimitive.Item>, React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> & VariantProps<typeof toggleVariants> >(({ className, children, variant, size, ...props }, ref) => { const context = React.useContext(ToggleGroupContext); return ( <ToggleGroupPrimitive.Item ref={ref} className={cn( toggleVariants({ variant: context.variant || variant, size: context.size || size, }), className, )} {...props} > {children} </ToggleGroupPrimitive.Item> ); }); ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName; export { ToggleGroup, ToggleGroupItem }; import * as React from "react"; import * as TogglePrimitive from "@radix-ui/react-toggle"; import { cva, type VariantProps } from "class-variance-authority"; import { cn } from "@/lib/utils"; const toggleVariants = cva( "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground", { variants: { variant: { default: "bg-transparent", outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground", }, size: { default: "h-10 px-3", sm: "h-9 px-2.5", lg: "h-11 px-5", }, }, defaultVariants: { variant: "default", size: "default", }, }, ); const Toggle = React.forwardRef< React.ElementRef<typeof TogglePrimitive.Root>, React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants> >(({ className, variant, size, ...props }, ref) => ( <TogglePrimitive.Root ref={ref} className={cn(toggleVariants({ variant, size, className }))} {...props} /> )); Toggle.displayName = TogglePrimitive.Root.displayName; export { Toggle, toggleVariants }; import * as React from "react"; import * as TooltipPrimitive from "@radix-ui/react-tooltip"; import { cn } from "@/lib/utils"; const TooltipProvider = TooltipPrimitive.Provider; const Tooltip = TooltipPrimitive.Root; const TooltipTrigger = TooltipPrimitive.Trigger; const TooltipContent = React.forwardRef< React.ElementRef<typeof TooltipPrimitive.Content>, React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> >(({ className, sideOffset = 4, ...props }, ref) => ( <TooltipPrimitive.Content ref={ref} sideOffset={sideOffset} className={cn( "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2", className, )} {...props} /> )); TooltipContent.displayName = TooltipPrimitive.Content.displayName; export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }; import { useToast, toast } from "@/hooks/use-toast"; export { useToast, toast }; import { NavLink as RouterNavLink, NavLinkProps } from "react-router-dom"; import { forwardRef } from "react"; import { cn } from "@/lib/utils"; interface NavLinkCompatProps extends Omit<NavLinkProps, "className"> { className?: string; activeClassName?: string; pendingClassName?: string; } const NavLink = forwardRef<HTMLAnchorElement, NavLinkCompatProps>( ({ className, activeClassName, pendingClassName, to, ...props }, ref) => { return ( <RouterNavLink ref={ref} to={to} className={({ isActive, isPending }) => cn(className, isActive && activeClassName, isPending && pendingClassName) } {...props} /> ); }, ); NavLink.displayName = "NavLink"; export { NavLink }; 
+import * as React from "react";
+const MOBILE_BREAKPOINT = 768;
+export function useIsMobile() {
+const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined);
+React.useEffect(() => {
+const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+const onChange = () => {
+setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+};
+mql.addEventListener("change", onChange);
+setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+return () => mql.removeEventListener("change", onChange);
+}, []);
+return !!isMobile;
+}
+import * as React from "react"; import type { ToastActionElement, ToastProps } from "@/components/ui/toast"; const TOAST_LIMIT = 1; const TOAST_REMOVE_DELAY = 1000000; type ToasterToast = ToastProps & { id: string; title?: React.ReactNode; description?: React.ReactNode; action?: ToastActionElement; }; const actionTypes = { ADD_TOAST: "ADD_TOAST", UPDATE_TOAST: "UPDATE_TOAST", DISMISS_TOAST: "DISMISS_TOAST", REMOVE_TOAST: "REMOVE_TOAST", } as const; let count = 0; function genId() { count = (count + 1) % Number.MAX_SAFE_INTEGER; return count.toString(); } type ActionType = typeof actionTypes; type Action = | { type: ActionType["ADD_TOAST"]; toast: ToasterToast; } | { type: ActionType["UPDATE_TOAST"]; toast: Partial<ToasterToast>; } | { type: ActionType["DISMISS_TOAST"]; toastId?: ToasterToast["id"]; } | { type: ActionType["REMOVE_TOAST"]; toastId?: ToasterToast["id"]; }; interface State { toasts: ToasterToast[]; } const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>(); const addToRemoveQueue = (toastId: string) => { if (toastTimeouts.has(toastId)) { return; } const timeout = setTimeout(() => { toastTimeouts.delete(toastId); dispatch({ type: "REMOVE_TOAST", toastId: toastId, }); }, TOAST_REMOVE_DELAY); toastTimeouts.set(toastId, timeout); }; export const reducer = (state: State, action: Action): State => { switch (action.type) { case "ADD_TOAST": return { ...state, toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT), }; case "UPDATE_TOAST": return { ...state, toasts: state.toasts.map((t) => (t.id === action.toast.id ? { ...t, ...action.toast } : t)), }; case "DISMISS_TOAST": { const { toastId } = action; // ! Side effects ! - This could be extracted into a dismissToast() action, // but I'll keep it here for simplicity if (toastId) { addToRemoveQueue(toastId); } else { state.toasts.forEach((toast) => { addToRemoveQueue(toast.id); }); } return { ...state, toasts: state.toasts.map((t) => t.id === toastId || toastId === undefined ? { ...t, open: false, } : t, ), }; } case "REMOVE_TOAST": if (action.toastId === undefined) { return { ...state, toasts: [], }; } return { ...state, toasts: state.toasts.filter((t) => t.id !== action.toastId), }; } }; const listeners: Array<(state: State) => void> = []; let memoryState: State = { toasts: [] }; function dispatch(action: Action) { memoryState = reducer(memoryState, action); listeners.forEach((listener) => { listener(memoryState); }); } type Toast = Omit<ToasterToast, "id">; function toast({ ...props }: Toast) { const id = genId(); const update = (props: ToasterToast) => dispatch({ type: "UPDATE_TOAST", toast: { ...props, id }, }); const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id }); dispatch({ type: "ADD_TOAST", toast: { ...props, id, open: true, onOpenChange: (open) => { if (!open) dismiss(); }, }, }); return { id: id, dismiss, update, }; } function useToast() { const [state, setState] = React.useState<State>(memoryState); React.useEffect(() => { listeners.push(setState); return () => { const index = listeners.indexOf(setState); if (index > -1) { listeners.splice(index, 1); } }; }, [state]); return { ...state, toast, dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }), }; } export { useToast, toast }; import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+export function cn(...inputs: ClassValue[]) {
+return twMerge(clsx(inputs));
+}
+import { useEffect, useRef, useState } from "react"; import { Link, useLocation, useNavigate } from "react-router-dom"; import { ArrowLeft, Download, UserPlus } from "lucide-react"; import Navbar from "@/components/legal/Navbar"; import AnalysisLoader from "@/components/legal/AnalysisLoader"; import LegalPathway from "@/components/legal/LegalPathway"; import RiskScore from "@/components/legal/RiskScore"; import Adversarial from "@/components/legal/Adversarial"; import Negotiation from "@/components/legal/Negotiation"; import { Button } from "@/components/ui/button"; type Section = "pathway" | "risk" | "adversarial" | "settlement"; const SECTIONS: { id: Section; label: string }[] = [ { id: "pathway", label: "Legal Pathway" }, { id: "risk", label: "Risk Score" }, { id: "adversarial", label: "Adversarial" }, { id: "settlement", label: "Settlement" }, ]; const Analysis = () => { const navigate = useNavigate(); const location = useLocation() as { state?: { issue?: string; type?: string } }; const [loading, setLoading] = useState(true); const [active, setActive] = useState
+("pathway"); const refs = { pathway: useRef(null), risk: useRef(null), adversarial: useRef(null), settlement: useRef(null), }; const issue = location.state?.issue ?? "Untitled case"; const caseType = location.state?.type ?? "Civil"; useEffect(() => { const t = setTimeout(() => setLoading(false), 3200); return () => clearTimeout(t); }, []); useEffect(() => { if (loading) return; const observer = new IntersectionObserver( (entries) => { const v = entries .filter((e) => e.isIntersecting) .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]; if (v) setActive(v.target.getAttribute("data-section") as Section); }, { rootMargin: "-30% 0px -55% 0px", threshold: [0.1, 0.5, 1] } ); Object.values(refs).forEach((r) => r.current && observer.observe(r.current)); return () => observer.disconnect(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [loading]); const scrollTo = (id: Section) => { refs[id].current?.scrollIntoView({ behavior: "smooth", block: "start" }); }; if (loading) { return ( ); } return ( {/* Sticky section tabs */} 
+{SECTIONS.map((s) => ( scrollTo(s.id)} className={`px-4 md:px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${ active === s.id ? "bg-primary text-primary-foreground shadow-soft" : "text-muted-foreground hover:text-foreground" }`} > {s.label} ))} 
+navigate("/dashboard")} className="rounded-full hidden sm:inline-flex" > New Case Consult Lawyer 
+{/* Case header */} 
+Analysis Complete 
+Case Analysis Report
+{caseType} · Generated {new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} 
+Download Report 
+Your description
+{issue}
+Want a human in the loop?
+Speak with a verified lawyer over chat or video — on your schedule. 
+Consult a Lawyer 
+© {new Date().getFullYear()} Lex — Informational only, not a substitute for legal advice. 
+); }; export default Analysis; import { useMemo, useState } from "react"; import Navbar from "@/components/legal/Navbar"; import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/dialog"; import { MessageCircle, Video, Star, BadgeCheck, Clock, Search, Send, Phone, X, Sparkles, } from "lucide-react"; import { toast } from "sonner"; type Mode = "chat" | "video"; type Lawyer = (typeof lawyers)[number]; const lawyers = [ { name: "Aditi Sharma", spec: "Family & Divorce", rating: 4.9, reviews: 1284, chat: 25, video: 60, exp: 12, online: true, initials: "AS", lang: "EN · HI" }, { name: "Rohan Mehta", spec: "Corporate & M&A", rating: 4.8, reviews: 932, chat: 40, video: 90, exp: 15, online: true, initials: "RM", lang: "EN" }, { name: "Nisha Verma", spec: "Criminal Defense", rating: 4.9, reviews: 2105, chat: 30, video: 75, exp: 18, online: false, initials: "NV", lang: "EN · HI · MR" }, { name: "Arjun Kapoor", spec: "Property & Real Estate", rating: 4.7, reviews: 748, chat: 20, video: 55, exp: 9, online: true, initials: "AK", lang: "EN · HI" }, { name: "Priya Nair", spec: "Consumer & Civil", rating: 4.8, reviews: 611, chat: 18, video: 48, exp: 7, online: true, initials: "PN", lang: "EN · ML" }, { name: "Karan Iyer", spec: "Intellectual Property", rating: 4.9, reviews: 489, chat: 35, video: 80, exp: 11, online: false, initials: "KI", lang: "EN · TA" }, ]; const FILTERS = ["All", "Family", "Criminal", "Property", "Corporate", "Consumer", "IP"]; const Consult = () => { const [mode, setMode] = useState("chat"); const [query, setQuery] = useState(""); const [filter, setFilter] = useState("All"); const [chatWith, setChatWith] = useState(null); const [messages, setMessages] = useState<{ from: "me" | "them"; text: string }[]>([]); const [draft, setDraft] = useState(""); const filtered = useMemo(() => { return lawyers.filter((l) => { const matchesFilter = filter === "All" || l.spec.toLowerCase().includes(filter.toLowerCase()); const q = query.trim().toLowerCase(); const matchesQuery = !q || l.name.toLowerCase().includes(q) || l.spec.toLowerCase().includes(q); return matchesFilter && matchesQuery; }); }, [query, filter]); const openChat = (l: Lawyer) => { setChatWith(l); setMessages([ { from: "them", text: `Hi, I'm ${l.name.split(" ")[0]}. How can I help you today?` }, ]); setDraft(""); }; const send = () => { if (!draft.trim()) return; const text = draft.trim(); setMessages((m) => [...m, { from: "me", text }]); setDraft(""); setTimeout(() => { setMessages((m) => [ ...m, { from: "them", text: "Thanks for sharing — could you also send any related documents you have?" }, ]); }, 900); }; const startVideo = (name: string) => { toast.success(`Video call request sent to ${name}`, { description: "Connecting shortly…" }); }; return ( 
+Consult
+Find your lawyer.
+Search verified advocates by name, specialty, or keyword — start a chat in seconds. 
+{/* Search bar */} 
+setQuery(e.target.value)} placeholder="Search by name or specialty (e.g. property, divorce)…" className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base" /> Search 
+{/* Filters */} 
+{FILTERS.map((f) => ( setFilter(f)} className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all ${ filter === f ? "bg-primary text-primary-foreground border-primary shadow-soft" : "bg-surface-raised border-border/60 text-muted-foreground hover:text-foreground" }`} > {f} ))} 
+{(["chat", "video"] as Mode[]).map((m) => ( setMode(m)} className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${ mode === m ? "bg-primary text-primary-foreground shadow-soft" : "text-muted-foreground hover:text-foreground" }`} > {m === "chat" ? : } {m === "chat" ? "Chat" : "Video"} ))} 
+{filtered.length === 0 ? ( 
+No lawyers match your search.
+) : ( 
+{filtered.map((l, i) => ( 
+{l.initials} 
+{l.name}
+{l.spec}
+{l.rating} ({l.reviews}) {l.exp} yrs {l.lang} 
+{mode === "chat" ? "Chat" : "Video"} rate
+₹{mode === "chat" ? l.chat : l.video} /min 
+(mode === "chat" ? openChat(l) : startVideo(l.name))} className="rounded-xl bg-gradient-primary hover:opacity-95 shadow-soft" > {mode === "chat" ? (<> Chat) : (<> Video)} 
+))} 
+)} 
+{/* Chat Popup */} !o && setChatWith(null)}> 
+{chatWith?.initials} 
+{chatWith?.name} 
+{chatWith?.spec} · Online
+toast.info("Switching to video…")} className="w-9 h-9 grid place-items-center rounded-lg hover:bg-primary-foreground/10" aria-label="Voice call" > setChatWith(null)} className="w-9 h-9 grid place-items-center rounded-lg hover:bg-primary-foreground/10" aria-label="Close" > 
+End-to-end confidential · ₹{chatWith?.chat}/min 
+{messages.map((m, i) => ( 
+{m.text} 
+))} 
+setDraft(e.target.value)} onKeyDown={(e) => e.key === "Enter" && send()} placeholder="Type your message…" className="rounded-xl bg-card" /> 
+All consultations are confidential and recorded per consent. 
+); }; export default Consult; import { useState } from "react"; import { useNavigate } from "react-router-dom"; import Navbar from "@/components/legal/Navbar"; import HeroInput from "@/components/legal/HeroInput"; const Dashboard = () => { const navigate = useNavigate(); const [analyzing, setAnalyzing] = useState(false); const handleAnalyze = (issue: string, type: string) => { setAnalyzing(true); // Brief delay so the button state is felt, then route to dedicated analysis page setTimeout(() => { navigate("/analysis", { state: { issue, type } }); }, 250); }; return ( 
+© {new Date().getFullYear()} Lex — Informational only, not a substitute for legal advice. 
+); }; export default Dashboard; import Landing from "./Landing";
+const Index = () => <Landing />;
+export default Index;
+import { Link } from "react-router-dom"; import { ArrowRight, Sparkles, Scale, Shield, Gavel, Brain, Users, CheckCircle2, Quote, Star, FileText, MessageCircle, } from "lucide-react"; import { Button } from "@/components/ui/button"; import Navbar from "@/components/legal/Navbar"; const features = [ { icon: Brain, title: "Legal Pathway", desc: "AI maps every procedural step from filing to resolution." }, { icon: Shield, title: "Risk Scoring", desc: "Quantify your exposure with a precedent-aware risk index." }, { icon: Gavel, title: "Adversarial Simulation", desc: "Advocate vs. Opponent AI — see both sides before they do." }, { icon: Users, title: "Human Lawyers", desc: "Escalate to a verified advocate over chat or video anytime." }, ]; const steps = [ { n: "01", title: "Create your account", desc: "Sign up in under a minute — your case stays private." }, { n: "02", title: "Describe your case", desc: "Plain language. No legalese. Lex understands context." }, { n: "03", title: "Get instant clarity", desc: "Pathway, risk, and negotiation playbook — all in one report." }, ]; const stats = [ { v: "12k+", l: "Cases analyzed" }, { v: "4.9", l: "Avg. user rating" }, { v: "180+", l: "Verified lawyers" }, { v: "30s", l: "Avg. report time" }, ]; const testimonials = [ { quote: "Lex saved me weeks of confusion. The risk score and pathway gave me real clarity before my first lawyer meeting.", name: "Meera K.", role: "Founder · Mumbai", }, { quote: "The adversarial simulation showed me arguments I hadn't considered. Felt like having a senior advocate in my pocket.", name: "Vikram S.", role: "Real estate investor", }, { quote: "Booked a chat with a property lawyer in two minutes. Smooth, premium, and genuinely helpful.", name: "Anjali R.", role: "HR Lead", }, ]; const Landing = () => { return ( {/* Hero */} 
+AI-powered legal intelligence 
+Your case, 
+understood instantly. 
+Lex is the AI legal assistant that maps your pathway, scores the risk, and simulates the opposition — before you ever step into a courtroom. 
+Get started free Talk to a lawyer 
+{["Confidential", "Not legal advice", "Precedent-aware", "Built with care"].map((t) => ( {t} ))} 
+{/* Floating product preview card */} 
+lex.ai/analysis 
+Risk
+72/100
+Pathway
+Gather evidence
+Send legal notice
+File the case
+Settlement
+68%
+Probability of resolution without trial.
+{/* Stats */} 
+{stats.map((s) => ( 
+{s.v}
+{s.l}
+))} 
+{/* Features */} 
+What Lex does
+One assistant. Four superpowers. 
+{features.map((f, i) => ( 
+{f.title}
+{f.desc}
+))} 
+{/* How it works */} 
+How it works
+Three steps to clarity.
+{steps.map((s) => ( 
+{s.n}
+{s.title}
+{s.desc}
+))} 
+{/* Testimonials */} 
+Voices
+Trusted by people facing real decisions.
+{testimonials.map((t, i) => ( 
+"{t.quote}"
+{t.name}
+{t.role}
+{[...Array(5)].map((_, j) => ( ))} 
+))} 
+{/* Trust strip */} 
+{[ "End-to-end confidential", "Trained on verified precedent", "Human lawyers on standby", ].map((t) => ( 
+{t} 
+))} 
+{/* CTA */} 
+Ready when you are.
+Create an account and get a full case analysis in seconds. 
+Start your analysis Chat with a lawyer 
+© {new Date().getFullYear()} Lex — Informational only, not a substitute for legal advice. 
+); }; export default Landing; import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+const NotFound = () => {
+const location = useLocation();
+useEffect(() => {
+console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+}, [location.pathname]);
+return (
+<div className="flex min-h-screen items-center justify-center bg-muted">
+<div className="text-center">
+<h1 className="mb-4 text-4xl font-bold">404</h1>
+<p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
+<a href="/" className="text-primary underline hover:text-primary/90">
+Return to Home
+</a>
+</div>
+</div>
+);
+};
+export default NotFound;
+import { useState } from "react"; import { Link, useNavigate } from "react-router-dom"; import { Scale, ArrowRight, Mail, Lock, User } from "lucide-react"; import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Label } from "@/components/ui/label"; const Signup = () => { const navigate = useNavigate(); const [form, setForm] = useState({ name: "", email: "", password: "" }); const [loading, setLoading] = useState(false); const onSubmit = (e: React.FormEvent) => { e.preventDefault(); setLoading(true); // Simulated signup — replace with Lovable Cloud auth later setTimeout(() => { try { localStorage.setItem("lex_user", JSON.stringify({ name: form.name, email: form.email })); } catch {} navigate("/dashboard"); }, 700); }; return ( {/* Left — brand panel */} 
+Lex 
+Welcome
+Justice, on your side. 
+Create your Lex account to unlock instant case pathways, risk analysis and an adversarial simulation of your matter. 
+© {new Date().getFullYear()} Lex — Informational only. 
+{/* Right — form */} 
+Lex 
+Create account
+Takes less than a minute. Your case stays confidential. 
+Full name 
+setForm({ ...form, name: e.target.value })} placeholder="Ada Lovelace" className="pl-9 h-11 rounded-xl" /> 
+Email 
+setForm({ ...form, email: e.target.value })} placeholder="you@example.com" className="pl-9 h-11 rounded-xl" /> 
+Password 
+setForm({ ...form, password: e.target.value })} placeholder="At least 6 characters" className="pl-9 h-11 rounded-xl" /> 
+{loading ? "Creating account…" : "Create account"} 
+Already have an account?{" "} Continue 
+); }; export default Signup; import { describe, it, expect } from "vitest";
+describe("example", () => {
+it("should pass", () => {
+expect(true).toBe(true);
+});
+});
+import "@testing-library/jest-dom"; Object.defineProperty(window, "matchMedia", { writable: true, value: (query: string) => ({ matches: false, media: query, onchange: null, addListener: () => {}, removeListener: () => {}, addEventListener: () => {}, removeEventListener: () => {}, dispatchEvent: () => {}, }), }); 
+#root { max-width: 1280px; margin: 0 auto; padding: 2rem; text-align: center; } .logo { height: 6em; padding: 1.5em; will-change: filter; transition: filter 300ms; } .logo:hover { filter: drop-shadow(0 0 2em #646cffaa); } .logo.react:hover { filter: drop-shadow(0 0 2em #61dafbaa); } @keyframes logo-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { a:nth-of-type(2) .logo { animation: logo-spin infinite 20s linear; } } .card { padding: 2em; } .read-the-docs { color: #888; } import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; import { BrowserRouter, Route, Routes } from "react-router-dom"; import { Toaster as Sonner } from "@/components/ui/sonner"; import { Toaster } from "@/components/ui/toaster"; import { TooltipProvider } from "@/components/ui/tooltip"; import Index from "./pages/Index.tsx"; import Signup from "./pages/Signup.tsx"; import Dashboard from "./pages/Dashboard.tsx"; import Analysis from "./pages/Analysis.tsx"; import Consult from "./pages/Consult.tsx"; import NotFound from "./pages/NotFound.tsx"; const queryClient = new QueryClient(); const App = () => ( <QueryClientProvider client={queryClient}> <TooltipProvider> <Toaster /> <Sonner /> <BrowserRouter> <Routes> <Route path="/" element={<Index />} /> <Route path="/signup" element={<Signup />} /> <Route path="/dashboard" element={<Dashboard />} /> <Route path="/analysis" element={<Analysis />} /> <Route path="/consult" element={<Consult />} /> {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */} <Route path="*" element={<NotFound />} /> </Routes> </BrowserRouter> </TooltipProvider> </QueryClientProvider> ); export default App; @tailwind base; @tailwind components; @tailwind utilities; /* Lex — Premium Legal AI Design System All colors MUST be HSL. */ @layer base { :root { /* Core palette — warm parchment & oxblood */ --background: 36 33% 94%; /* #F5F1EA */ --foreground: 0 0% 12%; /* #1E1E1E */ --surface: 36 40% 97%; --surface-raised: 0 0% 100%; --card: 0 0% 100%; --card-foreground: 0 0% 12%; --popover: 0 0% 100%; --popover-foreground: 0 0% 12%; --primary: 0 33% 27%; /* #5A2E2E oxblood */ --primary-foreground: 36 33% 96%; --primary-glow: 0 35% 38%; --secondary: 36 25% 88%; --secondary-foreground: 0 0% 12%; --muted: 36 20% 90%; --muted-foreground: 0 0% 42%; /* #6B6B6B */ --accent: 19 19% 46%; /* #8C6A5D warm taupe */ --accent-foreground: 36 33% 97%; --destructive: 0 62% 42%; --destructive-foreground: 36 33% 97%; --success: 140 35% 35%; --success-foreground: 36 33% 97%; --warning: 36 70% 45%; --warning-foreground: 36 33% 97%; --border: 30 20% 84%; --input: 30 20% 86%; --ring: 0 33% 27%; --radius: 1rem; /* Gradients */ --gradient-hero: radial-gradient(1200px 600px at 70% -10%, hsl(19 30% 78% / 0.55), transparent 60%), radial-gradient(800px 500px at 10% 10%, hsl(0 30% 80% / 0.35), transparent 55%), linear-gradient(180deg, hsl(36 40% 96%), hsl(36 33% 94%)); --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow))); --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(19 25% 58%)); --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(36 30% 97%)); /* Shadows — soft, warm */ --shadow-soft: 0 1px 2px hsl(0 0% 0% / 0.04), 0 8px 24px -12px hsl(0 20% 20% / 0.12); --shadow-elevated: 0 2px 4px hsl(0 0% 0% / 0.04), 0 24px 48px -20px hsl(0 30% 20% / 0.22); --shadow-glow: 0 0 0 1px hsl(var(--primary) / 0.08), 0 20px 60px -20px hsl(var(--primary) / 0.35); /* Motion */ --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1); --transition-smooth: all 0.4s var(--ease-out-soft); --sidebar-background: 36 33% 96%; --sidebar-foreground: 0 0% 20%; --sidebar-primary: 0 33% 27%; --sidebar-primary-foreground: 36 33% 97%; --sidebar-accent: 36 25% 90%; --sidebar-accent-foreground: 0 0% 12%; --sidebar-border: 30 20% 84%; --sidebar-ring: 0 33% 27%; } .dark { /* Preserved but unused — app is light-only */ --background: 0 0% 8%; --foreground: 36 33% 94%; --card: 0 0% 10%; --card-foreground: 36 33% 94%; --popover: 0 0% 10%; --popover-foreground: 36 33% 94%; --primary: 36 33% 94%; --primary-foreground: 0 0% 8%; --secondary: 0 0% 14%; --secondary-foreground: 36 33% 94%; --muted: 0 0% 14%; --muted-foreground: 36 10% 70%; --accent: 19 19% 46%; --accent-foreground: 36 33% 97%; --destructive: 0 62% 42%; --destructive-foreground: 36 33% 97%; --border: 0 0% 18%; --input: 0 0% 18%; --ring: 36 33% 80%; } } @layer base { * { @apply border-border; } html { scroll-behavior: smooth; } body { @apply bg-background text-foreground antialiased; font-family: 'Inter', system-ui, -apple-system, sans-serif; font-feature-settings: 'cv11', 'ss01'; } h1, h2, h3, h4, .font-display { font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.01em; } } @layer components { .glass-card { @apply bg-card/80 backdrop-blur-xl border border-border/60 rounded-2xl; box-shadow: var(--shadow-soft); } .elevated-card { background: var(--gradient-card); @apply border border-border/60 rounded-2xl; box-shadow: var(--shadow-elevated); } .hero-gradient { background: var(--gradient-hero); } .story-link { @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left; } .hover-lift { @apply transition-all duration-300 hover:-translate-y-1; } .hover-lift:hover { box-shadow: var(--shadow-elevated); } } @layer utilities { .text-balance { text-wrap: balance; } .bg-gradient-primary { background: var(--gradient-primary); } .bg-gradient-accent { background: var(--gradient-accent); } .shadow-soft { box-shadow: var(--shadow-soft); } .shadow-elevated { box-shadow: var(--shadow-elevated); } .shadow-glow { box-shadow: var(--shadow-glow); } } import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+createRoot(document.getElementById("root")!).render(<App />);
+/// <reference types="vite/client" />
+{ "$schema": "https://ui.shadcn.com/schema.json", "style": "default", "rsc": false, "tsx": true, "tailwind": { "config": "tailwind.config.ts", "css": "src/index.css", "baseColor": "slate", "cssVariables": true, "prefix": "" }, "aliases": { "components": "@/components", "utils": "@/lib/utils", "ui": "@/components/ui", "lib": "@/lib", "hooks": "@/hooks" } } import js from "@eslint/js"; import globals from "globals"; import reactHooks from "eslint-plugin-react-hooks"; import reactRefresh from "eslint-plugin-react-refresh"; import tseslint from "typescript-eslint"; export default tseslint.config( { ignores: ["dist"] }, { extends: [js.configs.recommended, ...tseslint.configs.recommended], files: ["**/*.{ts,tsx}"], languageOptions: { ecmaVersion: 2020, globals: globals.browser, }, plugins: { "react-hooks": reactHooks, "react-refresh": reactRefresh, }, rules: { ...reactHooks.configs.recommended.rules, "react-refresh/only-export-components": ["warn", { allowConstantExport: true }], "@typescript-eslint/no-unused-vars": "off", }, }, ); <!doctype html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Lex — AI Legal Assistant</title> <meta name="description" content="Navigate the law with precision. AI-powered legal analysis, risk scoring, and on-demand lawyer consultations." /> <meta name="author" content="Lex" /> <link rel="preconnect" href="https://fonts.googleapis.com" /> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" /> <meta property="og:title" content="Lex — AI Legal Assistant" /> <meta property="og:description" content="Navigate the law with precision." /> <meta property="og:type" content="website" /> <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" /> <meta name="twitter:card" content="summary_large_image" /> <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" /> </head> <body> <div id="root"></div> <script type="module" src="/src/main.tsx"></script> </body> </html
+Here’s your **refined prompt with clear page-wise structuring instructions added** 👇
+
+---
+
+### **Updated Prompt: React → Angular + .NET Migration (With Page Mapping)**
+
+I have already provided a complete React-based frontend (and some backend logic written alongside it). Your task is to **convert this entire project into Angular (frontend)** and **.NET (backend, if required)** while strictly following the instructions below:
+
+---
+
+## 🔒 Core Requirements (VERY IMPORTANT)
+
+* **DO NOT change anything related to design, UI, or UX**
+* The **look and feel must remain 100% identical** (premium styling, spacing, typography, animations, layout, etc.)
+* **Keep all HEX color codes exactly the same**
+* **Do not modify any logic, flow, or functionality**
+* This is a **strict framework migration, not a redesign**
+
+---
+
+## 🎯 Frontend Conversion (React → Angular)
+
+* Convert all React components into proper **Angular components**
+* Use Angular best practices:
+
+  * Component-based architecture
+  * Services for API/data handling
+  * Angular Router for navigation
+* Replace:
+
+  * React Hooks → Angular lifecycle hooks / RxJS
+  * State management → Angular services or RxJS
+* Maintain:
+
+  * Same class names (as much as possible)
+  * Same styling (no visual deviation)
+  * Same responsiveness and interactions
+
+---
+
+## 📄 Page-wise Structure (VERY IMPORTANT)
+
+Create **clear page-level separation** so it’s easy to identify which code belongs to which screen.
+
+For every major screen/page in React:
+
+* Create a **dedicated Angular page component**
+* Place it inside `/pages`
+* Name files clearly based on their functionality
+
+### Example Structure:
+
+```
+/src
+  /app
+    /pages
+      /home
+        home.component.ts
+        home.component.html
+        home.component.scss
+      /login
+        login.component.ts
+        login.component.html
+        login.component.scss
+      /dashboard
+        dashboard.component.ts
+        dashboard.component.html
+        dashboard.component.scss
+
+    /components
+      (reusable UI components)
+
+    /services
+      (API and business logic)
+
+    /models
+      (interfaces/types)
+
+    /shared
+      (common utilities, constants)
+
+    /assets
+```
+
+---
+
+## 🧭 Page Mapping Requirement
+
+* Clearly **map each React page/component → Angular page/component**
+* Add comments like:
+
+  * `// Converted from React: Home.jsx`
+* Ensure:
+
+  * Each page’s logic stays inside its respective file
+  * No mixing of multiple page logics into one file
+
+---
+
+## ⚙️ Backend Conversion (if applicable)
+
+* Convert backend logic into **ASP.NET Core Web API**
+* Maintain:
+
+  * Same endpoints
+  * Same request/response formats
+  * Same business logic
+* Ensure Angular connects properly via services
+
+---
+
+## 🎨 Styling Rules
+
+* Preserve all:
+
+  * HEX colors
+  * Fonts, spacing, shadows
+  * Animations and transitions
+* If Tailwind/CSS is used:
+
+  * Replicate styles exactly
+* Final UI must be **pixel-perfect identical**
+
+---
+
+## 📦 Output Expectations
+
+* Full Angular project (well-structured)
+* .NET backend (if needed)
+* Clear folder hierarchy
+* Clean, production-ready code
+* Proper comments for understanding file mapping
+
+---
+
+## ⚠️ Final Reminder
+
+This is NOT an improvement task.
+This is a **strict migration with identical UI + logic**, just changing:
+
+* React → Angular
+* (Optional) Node → .NET
+
+---

@@ -1,0 +1,48 @@
+<section class="container py-20">
+  <div class="max-w-2xl mb-12 animate-fade-in-up">
+    <p class="text-xs uppercase tracking-[0.2em] text-accent font-medium mb-3">01 — Pathway</p>
+    <h2 class="font-display text-4xl md:text-5xl">Your legal pathway, step by step.</h2>
+    <p class="mt-4 text-muted-foreground">A structured roadmap from first notice to final verdict.</p>
+  </div>
+
+  <div class="relative">
+    <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-border via-primary/30 to-border md:-translate-x-1/2"></div>
+    <div class="space-y-8">
+      @for (s of steps(); track s.title; let i = $index) {
+        <div
+          class="relative grid md:grid-cols-2 gap-6 items-center animate-fade-in-up"
+          [class]="i % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''"
+          [style.animation-delay]="i * 80 + 'ms'">
+          <div [class]="'pl-16 md:pl-0 ' + (i % 2 === 0 ? 'md:text-right md:pr-12' : 'md:pl-12')">
+            <div class="elevated-card p-6 hover-lift inline-block text-left">
+              <div class="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                <span class="font-mono">Step {{ (i + 1).toString().padStart(2, '0') }}</span>
+              </div>
+              <h3 class="font-display text-2xl mb-2">{{ s.title }}</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">{{ s.detail }}</p>
+            </div>
+          </div>
+          <div class="absolute left-0 md:left-1/2 top-6 md:-translate-x-1/2">
+            <div class="w-10 h-10 rounded-full bg-gradient-primary grid place-items-center shadow-glow ring-4 ring-background">
+              <lucide-icon [img]="getIcon(s.icon)" class="w-4 h-4 text-primary-foreground"></lucide-icon>
+            </div>
+          </div>
+          <div class="hidden md:block"></div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="mt-16 elevated-card p-8 animate-fade-in-up">
+    <h3 class="font-display text-2xl mb-1">Required Documents</h3>
+    <p class="text-sm text-muted-foreground mb-6">Prepare these before proceeding.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      @for (d of documents(); track d) {
+        <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-secondary/60 border border-border/60">
+          <lucide-icon [img]="FileTextIcon" class="w-4 h-4 text-accent"></lucide-icon>
+          <span class="text-sm">{{ d }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>

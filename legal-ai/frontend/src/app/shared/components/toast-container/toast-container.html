@@ -1,0 +1,22 @@
+@if (toastService.toasts().length > 0) {
+  <div class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2 max-w-sm">
+    @for (t of toastService.toasts(); track t.id) {
+      <div
+        class="elevated-card px-5 py-4 animate-fade-in-up flex items-start gap-3 cursor-pointer"
+        (click)="toastService.dismiss(t.id)">
+        <span
+          class="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
+          [class.bg-success]="t.type === 'success'"
+          [class.bg-primary]="t.type === 'info'"
+          [class.bg-destructive]="t.type === 'error'">
+        </span>
+        <div>
+          <p class="text-sm font-medium">{{ t.message }}</p>
+          @if (t.description) {
+            <p class="text-xs text-muted-foreground mt-0.5">{{ t.description }}</p>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

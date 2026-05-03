@@ -1,0 +1,50 @@
+<section class="hero-gradient min-h-[85vh] flex flex-col items-center justify-center px-6 text-center">
+  <div class="max-w-3xl w-full animate-fade-in-up">
+    <p class="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.2em] text-accent font-medium mb-6">
+      <lucide-icon [img]="SparklesIcon" class="w-4 h-4"></lucide-icon>
+      AI-powered legal intelligence
+    </p>
+    <h1 class="font-display text-5xl md:text-7xl font-semibold mb-4 leading-tight">
+      Navigate the Law<br>
+      <span class="text-primary">with Precision.</span>
+    </h1>
+    <p class="text-muted-foreground max-w-xl mx-auto mb-10 text-base leading-relaxed">
+      Describe your case in plain language. Lex maps your pathway, scores the risk,
+      and simulates both sides — all on one page.
+    </p>
+
+    <div class="elevated-card p-5 text-left max-w-2xl mx-auto">
+      <textarea
+        [ngModel]="issue()"
+        (ngModelChange)="issue.set($event)"
+        placeholder="Describe your legal issue... e.g. 'My landlord is withholding my security deposit after I moved out…'"
+        rows="4"
+        class="w-full resize-none bg-transparent px-4 py-3 text-base placeholder:text-muted-foreground/70 focus:outline-none">
+      </textarea>
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 border-t border-border/60 pt-3 px-1">
+        <select
+          [ngModel]="type()"
+          (ngModelChange)="type.set($event)"
+          class="sm:w-56 bg-secondary/50 border border-border/60 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+          @for (c of caseTypes; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+        <div class="flex-1"></div>
+        <button
+          [disabled]="!issue().trim() || analyzing()"
+          (click)="onAnalyze()"
+          class="rounded-xl bg-gradient-primary hover:opacity-95 shadow-glow h-12 px-6 text-primary-foreground font-medium text-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity">
+          {{ analyzing() ? 'Analyzing\u2026' : 'Analyze Case' }}
+          <lucide-icon [img]="ArrowRightIcon" class="w-4 h-4"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-8 flex flex-wrap justify-center gap-2 text-xs text-muted-foreground">
+      @for (t of badges; track t) {
+        <span class="px-3 py-1 rounded-full bg-surface-raised border border-border/60">{{ t }}</span>
+      }
+    </div>
+  </div>
+</section>

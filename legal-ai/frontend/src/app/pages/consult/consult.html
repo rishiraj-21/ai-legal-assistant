@@ -1,0 +1,140 @@
+<app-navbar />
+
+<section class="container py-16">
+  <div class="text-center mb-12 animate-fade-in-up">
+    <p class="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.2em] text-accent font-medium mb-3">
+      <lucide-icon [img]="SparklesIcon" class="w-4 h-4"></lucide-icon>
+      Consult
+    </p>
+    <h1 class="font-display text-4xl md:text-5xl mb-3">Find your lawyer.</h1>
+    <p class="text-muted-foreground max-w-lg mx-auto">
+      Search verified advocates by name, specialty, or keyword — start a chat in seconds.
+    </p>
+  </div>
+
+  <!-- Search bar -->
+  <div class="elevated-card p-4 flex items-center gap-3 mb-6 max-w-2xl mx-auto animate-fade-in-up">
+    <lucide-icon [img]="SearchIcon" class="w-5 h-5 text-muted-foreground flex-shrink-0"></lucide-icon>
+    <input
+      type="text"
+      [ngModel]="query()"
+      (ngModelChange)="query.set($event)"
+      placeholder="Search by name or specialty (e.g. property, divorce)\u2026"
+      class="flex-1 bg-transparent border-0 text-base focus:outline-none placeholder:text-muted-foreground/70">
+    <button class="px-4 py-2 rounded-xl bg-gradient-primary text-primary-foreground text-sm font-medium shadow-soft hover:opacity-95 transition-opacity">
+      Search
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="flex flex-wrap items-center justify-center gap-2 mb-8 animate-fade-in-up">
+    @for (f of filters; track f) {
+      <button
+        (click)="filter.set(f)"
+        class="px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all"
+        [class.bg-primary]="filter() === f"
+        [class.text-primary-foreground]="filter() === f"
+        [class.border-primary]="filter() === f"
+        [class.shadow-soft]="filter() === f"
+        [class.bg-surface-raised]="filter() !== f"
+        [class.border-border/60]="filter() !== f"
+        [class.text-muted-foreground]="filter() !== f"
+        [class.hover:text-foreground]="filter() !== f">
+        {{ f }}
+      </button>
+    }
+
+    <div class="w-px h-6 bg-border mx-2"></div>
+
+    <button
+      (click)="mode.set('chat')"
+      class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all"
+      [class.bg-primary]="mode() === 'chat'"
+      [class.text-primary-foreground]="mode() === 'chat'"
+      [class.shadow-soft]="mode() === 'chat'"
+      [class.text-muted-foreground]="mode() !== 'chat'"
+      [class.hover:text-foreground]="mode() !== 'chat'">
+      <lucide-icon [img]="MessageCircleIcon" class="w-4 h-4"></lucide-icon>
+      Chat
+    </button>
+    <button
+      (click)="mode.set('video')"
+      class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all"
+      [class.bg-primary]="mode() === 'video'"
+      [class.text-primary-foreground]="mode() === 'video'"
+      [class.shadow-soft]="mode() === 'video'"
+      [class.text-muted-foreground]="mode() !== 'video'"
+      [class.hover:text-foreground]="mode() !== 'video'">
+      <lucide-icon [img]="VideoIcon" class="w-4 h-4"></lucide-icon>
+      Video
+    </button>
+  </div>
+
+  <!-- Lawyer cards -->
+  @if (filtered().length === 0) {
+    <div class="text-center py-20">
+      <p class="text-muted-foreground">No lawyers match your search.</p>
+    </div>
+  } @else {
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      @for (l of filtered(); track l.name; let i = $index) {
+        <div class="elevated-card p-6 hover-lift animate-fade-in-up" [style.animation-delay]="i * 60 + 'ms'">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-primary grid place-items-center text-primary-foreground font-display font-semibold text-sm flex-shrink-0">
+              {{ l.initials }}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5">
+                <h3 class="font-display text-lg truncate">{{ l.name }}</h3>
+                <lucide-icon [img]="BadgeCheckIcon" class="w-4 h-4 text-primary flex-shrink-0"></lucide-icon>
+              </div>
+              <p class="text-xs text-muted-foreground">{{ l.spec }}</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 text-xs text-muted-foreground mb-4">
+            <span class="flex items-center gap-1">
+              <lucide-icon [img]="StarIcon" class="w-3 h-3 text-warning"></lucide-icon>
+              {{ l.rating }} ({{ l.reviews }})
+            </span>
+            <span class="flex items-center gap-1">
+              <lucide-icon [img]="ClockIcon" class="w-3 h-3"></lucide-icon>
+              {{ l.exp }} yrs
+            </span>
+            <span>{{ l.lang }}</span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs text-muted-foreground">
+                {{ mode() === 'chat' ? 'Chat' : 'Video' }} rate
+              </p>
+              <p class="font-display text-lg text-primary">
+                &#8377;{{ mode() === 'chat' ? l.chat : l.video }} <span class="text-xs text-muted-foreground font-sans">/min</span>
+              </p>
+            </div>
+            <button
+              (click)="onAction(l)"
+              class="px-5 py-2.5 rounded-xl bg-gradient-primary text-primary-foreground text-sm font-medium shadow-soft hover:opacity-95 transition-opacity flex items-center gap-2">
+              @if (mode() === 'chat') {
+                <lucide-icon [img]="MessageCircleIcon" class="w-4 h-4"></lucide-icon>
+                Chat
+              } @else {
+                <lucide-icon [img]="VideoIcon" class="w-4 h-4"></lucide-icon>
+                Video
+              }
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>
+
+<!-- Chat Dialog -->
+@if (chatWith()) {
+  <app-chat-dialog
+    [lawyer]="chatWith()!"
+    (closed)="closeChat()"
+    (videoRequested)="onVideoFromChat()" />
+}

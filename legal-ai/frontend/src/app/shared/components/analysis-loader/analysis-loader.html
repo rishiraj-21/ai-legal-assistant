@@ -1,0 +1,40 @@
+<div class="min-h-[70vh] grid place-items-center px-6">
+  <div class="text-center max-w-md w-full">
+    <div class="relative w-32 h-32 mx-auto mb-10">
+      <div class="absolute inset-0 rounded-full bg-primary/20 blur-2xl animate-pulse"></div>
+      <div class="absolute inset-2 rounded-full border border-primary/20 animate-pulse"></div>
+      <div class="absolute inset-0 grid place-items-center">
+        <div class="w-20 h-20 rounded-2xl bg-gradient-primary grid place-items-center shadow-glow animate-spin-slow">
+          <lucide-icon [img]="ScaleIcon" class="w-10 h-10 text-primary-foreground"></lucide-icon>
+        </div>
+      </div>
+    </div>
+    <h2 class="font-display text-4xl mb-3">Analyzing Your Case</h2>
+    <p class="text-sm text-muted-foreground mb-8">
+      Lex is reasoning through your situation — this takes a moment.
+    </p>
+    <ul class="space-y-3 text-left">
+      @for (s of steps; track s; let i = $index) {
+        <li
+          class="flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-500"
+          [class.opacity-100]="isActive(i)"
+          [class.translate-y-0]="isActive(i)"
+          [class.bg-card]="isActive(i)"
+          [class.border-border/60]="isActive(i)"
+          [class.opacity-0]="!isActive(i)"
+          [class.translate-y-2]="!isActive(i)"
+          [class.bg-transparent]="!isActive(i)"
+          [class.border-transparent]="!isActive(i)">
+          <span
+            class="w-2 h-2 rounded-full"
+            [class.bg-primary]="isCurrent(i)"
+            [class.animate-pulse]="isCurrent(i)"
+            [class.bg-success]="isActive(i) && !isCurrent(i)"
+            [class.bg-muted]="!isActive(i)">
+          </span>
+          <span class="text-sm">{{ s }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
